@@ -1,10 +1,7 @@
-/Location.class
-/NPC.class
-/Room.class
-/Orientation.class
-/supine.class
-/Supine.class
-/Kneeling.class
-/Prone.class
-/Sitting.class
-/Standing.class
+/Profession.class
+/ProfessionFactory.class
+/Accountant.class
+/Artist.class
+/Janitor.class
+/Ability.class
+/Calculate.class

@@ -40,10 +40,7 @@ public class Application {
 		//have one character object per game?
 		Character character = new Character(name);
 		
-		System.out.println("Your Character's name is: " + character.getName());
-		System.out.println("Your Character's Strength is :" + character.getStrength());
-		System.out.println("Your Character's Intelligence is :" + character.getIntelligence());
-		System.out.println("Your Character's Dexterity is :" + character.getDexterity());
+		character.displayInfo();
 		
 		
 	}
