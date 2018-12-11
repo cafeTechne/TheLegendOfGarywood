@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Character implements CharacterInterface{
+public class Character implements CharacterInterface, Serializable{
 
 	private int intelligence = 1;
 	private int strength = 1; 
@@ -176,5 +177,10 @@ public class Character implements CharacterInterface{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void changeDirection(double directionTarget) {
+		orientationStatus.setDirection(directionTarget);
+	}
+	
 	
 }

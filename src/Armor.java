@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Armor extends Item{
+public class Armor extends Item implements Serializable{
 
 	private boolean cloth = false;
 	private boolean leather = false;

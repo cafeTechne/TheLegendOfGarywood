@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class ProfessionFactory {
+public class ProfessionFactory implements Serializable {
 	
 	public Profession chooseProfession(Integer newProfessionType){
 

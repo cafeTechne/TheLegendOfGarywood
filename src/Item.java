@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Item {
+public class Item implements Serializable {
 	
 	private int maximumDurability = 100;
 	private int currentDurability = 100;

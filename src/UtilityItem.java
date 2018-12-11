@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class UtilityItem extends Item{
+public class UtilityItem extends Item implements Serializable{
 
 	private boolean climbingItem = false;
 	private boolean swimmingItem = false;

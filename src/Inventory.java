@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Inventory {
+public class Inventory implements Serializable {
 
 	private int numberOfItems = 1;
 	

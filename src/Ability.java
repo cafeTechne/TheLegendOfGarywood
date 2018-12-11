@@ -1,10 +1,11 @@
+import java.io.Serializable;
 
-public interface Ability {
+public interface Ability{
 
 }
 
 
-class Calculate implements Ability{
+class Calculate implements Ability, Serializable{
 
 	
 }

@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Artist extends Profession{
+public class Artist extends Profession implements Serializable{
 
 
 	public String toString() {

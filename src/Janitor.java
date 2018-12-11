@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Janitor extends Profession{
+public class Janitor extends Profession implements Serializable{
 	
 	public Janitor() {
 	}

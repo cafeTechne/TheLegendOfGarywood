@@ -1,12 +1,14 @@
+import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.*;
 
 
-public class Application {
+public class Application implements Serializable {
 
 	public static int characterCount = 0;
 	private static Scanner keyboard;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		//run game opening animation
 		//openingAnimation();
 		
@@ -24,7 +26,7 @@ public class Application {
 
 	}
 
-	public static void start() {
+	public static void start() throws FileNotFoundException {
 		System.out.println("Adventurer, what is your name?");
 		keyboard = new Scanner(System.in);
 		
@@ -41,6 +43,8 @@ public class Application {
 		Character character = new Character(name);
 		
 		character.displayInfo();
+		
+		LocationManager lm = new LocationManager();
 		
 		
 	}

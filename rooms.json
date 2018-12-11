@@ -1,0 +1,18 @@
+[
+  {
+    "roomNumber":1,
+    "name":"name1",
+    "roomDescription"
+    "npcList":
+    [
+      {"npcID":2,"name":"Chuck","hitPoints":5,"attackDamage":5},
+      {"npcID":3,"name":"Dan","hitPoints":5, "attackDamage":5}      
+    ],
+    "availableExits":
+    [
+      {"north":2,"west":3,"east":4,"south":5}
+    ]
+  }
+
+
+]

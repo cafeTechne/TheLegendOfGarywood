@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Weapon extends Item {
+public class Weapon extends Item implements Serializable {
 
 	private int pierce = 1;
 	private int slash = 1;

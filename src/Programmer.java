@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Programmer extends Profession {
+public class Programmer extends Profession implements Serializable {
 
 	public Programmer() {
 	}

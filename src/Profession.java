@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Profession {
+public class Profession implements Serializable {
 	
 	private ArrayList<Ability> abilityList = new ArrayList<Ability>();
 

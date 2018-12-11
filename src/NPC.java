@@ -1,4 +1,5 @@
+import java.io.Serializable;
 
-public class NPC {
+public class NPC implements Serializable {
 
 }

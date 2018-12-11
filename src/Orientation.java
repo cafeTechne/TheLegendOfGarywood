@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public interface Orientation {
+public interface Orientation{
 
 	public boolean tryToMove();
 	public String getOrientation();
@@ -10,7 +11,7 @@ public interface Orientation {
 	//Orientation: prone, supine, kneeling, standing, 
 	//sitting, && which direction they are facing (in radians or degrees).
 
-class Supine implements Orientation{
+class Supine implements Orientation, Serializable{
 	
 	//direction is == 0 because Character is facing towards the sky.
 	private double direction = 0;
@@ -37,7 +38,7 @@ class Supine implements Orientation{
 	}
 }
 
-class Prone implements Orientation{
+class Prone implements Orientation, Serializable{
 	
 	//direction is == 0 because Character is facing towards the ground.
 	private double direction = 0;
@@ -64,7 +65,7 @@ class Prone implements Orientation{
 	}
 }
 
-class Kneeling implements Orientation{
+class Kneeling implements Orientation, Serializable{
 	
 	private double direction = 0;
 	String orientationStatus;
@@ -88,7 +89,7 @@ class Kneeling implements Orientation{
 	}
 }
 
-class Sitting implements Orientation{
+class Sitting implements Orientation, Serializable{
 	
 	private double direction = 0;
 	String orientationStatus;
@@ -112,7 +113,7 @@ class Sitting implements Orientation{
 	}
 }
 
-class Standing implements Orientation{
+class Standing implements Orientation, Serializable{
 	
 	private double direction = 0;
 	String orientationStatus;

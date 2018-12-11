@@ -1,6 +1,6 @@
+import java.io.Serializable;
 
-
-public class Accountant extends Profession{
+public class Accountant extends Profession implements Serializable{
 
 	public Accountant() {
 		//add abilities on creation

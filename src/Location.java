@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Location extends Room{
+public class Location extends Room implements Serializable{
 
 	private double xCoordinate = 1;
 	private double yCoordinate = 1;

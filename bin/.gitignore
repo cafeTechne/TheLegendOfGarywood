@@ -1,9 +1,3 @@
-/Profession.class
-/ProfessionFactory.class
-/Accountant.class
-/Artist.class
-/Janitor.class
-/Ability.class
-/Calculate.class
-/CharacterInterface.class
-/Programmer.class
+/LocationManager.class
+/RoomList.class
+/rooms.json
