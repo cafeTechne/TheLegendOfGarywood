@@ -1,0 +1,10 @@
+# Details of a room
+
+roomTitle: Cubicle
+roomNumber: 0
+exits: 
+  - North
+  - South
+npcList:
+  - Dan
+  - Chuck
