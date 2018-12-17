@@ -26,5 +26,7 @@ public interface MonsterInterface {
 	 */
 	
 	public void onActionTrigger();
+
+	
 	
 }

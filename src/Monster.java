@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Monster extends NPC implements MonsterInterface{
@@ -12,13 +13,16 @@ public class Monster extends NPC implements MonsterInterface{
 	//set an enum type system for creature size where 3 is humanoid size, 2 is halfling size, 1 is tiny, 4 is giant size, 5 is gargantuan, etc.
 	private int sizeCategory = 3;
 	
-	//the monster's orientation in space
+	//the monster's orientation in space (state)
 	private Orientation monsterOrientationStatus;
+	
+	//holds a state object, since it has only one state at a time
+	private State currentState;
 	
 	//a list of the monster's abilities,
 	//should there be a hash of unique ability ID's
 	//to make life easy for data-basing?
-	private List<String> abilityList;
+	private List<String> abilityList = new ArrayList<String>();
 	
 	//Monsters have loot
 	private Treasure loot;
@@ -30,7 +34,7 @@ public class Monster extends NPC implements MonsterInterface{
 	private String currentTarget;
 	
 	
-	public Monster(int hp, int magicPoints, double movementSpeed, double attackSpeed, double attackRange, int sizeCategory, List<String> abilityList) {
+	public Monster(int hp, int magicPoints, double movementSpeed, double attackSpeed, double attackRange, int sizeCategory, int level, String region) {
 		this.setHitPoints(hp);
 		this.setAttackSpeed(attackSpeed);
 		this.setSizeCategory(sizeCategory);
@@ -42,6 +46,10 @@ public class Monster extends NPC implements MonsterInterface{
 	}
 
 
+	public void update() {
+		currentState.execute(this);
+	}
+	
 	public int getHitPoints() {
 		return hitPoints;
 	}

@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
@@ -19,11 +18,16 @@ public class Application implements Serializable {
 		//if user chooses new game, run start();
 		
 		//else load continue();  
-		//How to save and load a saved game?
+		//How to best save and load a saved game?
 		
 		
 		//for testing, we just begin with start();
 		start();
+		
+		//TODO: Build out a GameEntity class and figure out a way to create UUIDs for all objects created,
+		//there's a lot to unpack with implementing this though
+		
+		//TODO: structure a basic game loop and create input validation for basic text based commands!
 
 	}
 
@@ -31,7 +35,7 @@ public class Application implements Serializable {
 		System.out.println("Adventurer, what is your name?");
 		keyboard = new Scanner(System.in);
 		
-		//create method to validate input
+		//TODO: create method to validate input
 		String name = keyboard.nextLine();
 		
 		//how would we dynamically create variables here according to
@@ -46,6 +50,13 @@ public class Application implements Serializable {
 		character.displayInfo();
 		
 		
+		//Need to figure out a way to create a monsterFactory 
+		//that will make sense of how monsters should spawn
+		//this detail is important IMO, this goblin is a test object just for
+		//playing with behaviors and states TODO!
+		Goblin gobsnatch = new Goblin(5, 5, .5, .5, 1, 2, 1, "forest");
+		
+
 		
 	}
 }
