@@ -1,0 +1,29 @@
+{
+  "Rooms":
+  [
+    {
+      "roomID": "1",
+      "roomTitle": "Entrance",
+      "exits":
+      [
+        "Wooden Door"
+      ],
+      "npcList":
+      [
+        {
+          "name": "Gary's Guide"
+        }
+      ]
+    },
+    {
+      "roomID": "2",
+      "roomTitle": "Hallway",
+      "exits":
+      [
+        "Wooden Door"
+      ],
+      "npcList":
+      []
+    }
+  ]
+}

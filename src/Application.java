@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
-
 public class Application implements Serializable {
 
 	public static int characterCount = 0;
@@ -31,7 +30,11 @@ public class Application implements Serializable {
 
 	}
 
+
 	public static void start() throws IOException {
+		//build game map
+		Map<Integer, Room> roomMap = new RoomBuilder().buildRoomLayout();
+
 		System.out.println("Adventurer, what is your name?");
 		keyboard = new Scanner(System.in);
 		
@@ -49,7 +52,7 @@ public class Application implements Serializable {
 		//should the character object be static since it is a first person game right now?
 		//why or why not?
 		Character character = new Character(name);
-		
+
 		character.displayInfo();
 		
 		
