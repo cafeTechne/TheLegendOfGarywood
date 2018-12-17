@@ -45,6 +45,9 @@ public class Application implements Serializable {
 		
 		//or can we assume that each instance of the game will only
 		//have one character object per game?
+		
+		//should the character object be static since it is a first person game right now?
+		//why or why not?
 		Character character = new Character(name);
 		
 		character.displayInfo();
