@@ -1,8 +1,6 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
-
 
 public class Application implements Serializable {
 
@@ -27,7 +25,11 @@ public class Application implements Serializable {
 
 	}
 
+
 	public static void start() throws IOException {
+		//build game map
+		Map<Integer, Room> roomMap = new RoomBuilder().buildRoomLayout();
+
 		System.out.println("Adventurer, what is your name?");
 		keyboard = new Scanner(System.in);
 		
@@ -42,7 +44,7 @@ public class Application implements Serializable {
 		//or can we assume that each instance of the game will only
 		//have one character object per game?
 		Character character = new Character(name);
-		
+
 		character.displayInfo();
 		
 		
