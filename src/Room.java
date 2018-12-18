@@ -28,4 +28,8 @@ public class Room {
     public List<NPC> getNpcList() { return npcList; }
 
     public void setNpcList(List<NPC> npcList) { this.npcList = npcList; }
+    
+    public void addNpc(NPC npc) {this.npcList.add(npc);}
+
+
 }

@@ -28,5 +28,10 @@ public class NPC implements Serializable {
 		// TODO Auto-generated method stub
 		System.out.println("ZzzZzZZZZZZ...");
 	}
+	
+	//over-ridden so that 
+	public String toString() {
+		return name;
+	}
 
 }
