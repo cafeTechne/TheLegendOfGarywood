@@ -34,7 +34,10 @@ class Supine implements Orientation, Serializable{
 	@Override
 	public void setDirection(double direction) {
 		this.direction = 0;
-		
+	}
+	
+	public String toString() {
+		return "supine.";
 	}
 }
 
@@ -63,6 +66,10 @@ class Prone implements Orientation, Serializable{
 		this.direction = 0;
 		
 	}
+	
+	public String toString() {
+		return "prone.";
+	}
 }
 
 class Kneeling implements Orientation, Serializable{
@@ -86,6 +93,10 @@ class Kneeling implements Orientation, Serializable{
 
 	public void setDirection(double direction) {
 		this.direction = direction;
+	}
+	
+	public String toString() {
+		return "kneeling.";
 	}
 }
 
@@ -111,6 +122,11 @@ class Sitting implements Orientation, Serializable{
 	public void setDirection(double direction) {
 		this.direction = direction;
 	}
+	
+	public String toString() {
+		return "sitting.";
+	}
+	
 }
 
 class Standing implements Orientation, Serializable{
@@ -134,6 +150,10 @@ class Standing implements Orientation, Serializable{
 
 	public void setDirection(double direction) {
 		this.direction = direction;
+	}
+	
+	public String toString() {
+		return "standing.";
 	}
 }
 

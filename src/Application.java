@@ -7,9 +7,7 @@ public class Application implements Serializable {
 	private static Scanner keyboard;
 	static boolean exitFlag = false;
 	public static Character character;
-	//I moved the roomMap declaration to global scope so that it could be accessed outside of the scope of start()
-	static Map<Integer, Room> roomMap;
-	
+	public static Map<Integer, Room> roomMap;
 	public static Room currentRoom;
 	
 	
@@ -17,17 +15,13 @@ public class Application implements Serializable {
 	public static void main(String[] args) throws IOException {
 		
 		keyboard = new Scanner(System.in);
-		//run game opening animation
+		//TODO: run game opening animation
 		//openingAnimation();
 		
-		
-		//prompt user for newGame or to continue
+
+		//TODO: Add game save & load logic. Serialization?
+		//TODO: prompt user for newGame or to continue
 		//prompt();
-		
-		//if user chooses new game, run start();
-		
-		//else load continue();  
-		//How to best save and load a saved game?
 		
 		//for testing, we just begin with start();
 		start();
@@ -46,6 +40,7 @@ public class Application implements Serializable {
 
 	}
 
+	
 	//TODO: How to modularize input parsing for efficiency?
 	public static void input() {
 		System.out.println("\nUser, what would you like to do?");
@@ -54,32 +49,35 @@ public class Application implements Serializable {
 		//TODO: logic for "look at goblin", or "look in hole in tree", for example... what is the best approach for this?
 		
 		if(input.equalsIgnoreCase("look")) {
-						
-			System.out.println("You are at: " + currentRoom.getRoomTitle());
-			
-			//TODO: roomDescription needs to be defined in the object
-			//System.out.println(currentRoom.getRoomDescription());
-			
-			//TODO: a list of objects that can be interacted with? ex: System.out.println("Objects on the ground: + currentRoom.getObjectsInTheRoom()");
-			System.out.println("Also here: " + currentRoom.getNpcList());
-			
-			System.out.println("Available exits: " + currentRoom.getExits());
-			
+			lookAtCurrentRoom();		
 		}
 		else if(input.equalsIgnoreCase("info")) {
 			System.out.println("Your character has the following stats:\n");
 			character.displayInfo();
 		}
+		else if(input.equalsIgnoreCase("sit")) {
+			System.out.println("You sit down.");
+			character.setOrientationStatus(new Sitting());
+		}
+		else if(input.equalsIgnoreCase("stand")) {
+			System.out.println("You stand up.");
+			character.setOrientationStatus(new Standing());
+		}
+		else if(input.equalsIgnoreCase("lie")) {
+			System.out.println("You lie down into the supine position.");
+			character.setOrientationStatus(new Supine());
+		}		
 		else if(input.equalsIgnoreCase("help")) {
 			System.out.println("The following are valid commands:\n");
-			System.out.println("look\ninfo\n");
+			System.out.println("look\ninfo\ngo\nsit\nstand\nlie\n");
 		}
-		else if(input.equalsIgnoreCase("go Wooden Door")) {
-			move("Wooden Door");
+		//TODO: Can we improve the generalization of the parsing for the go command here?
+		else if(input.substring(0, 2).equalsIgnoreCase("go")) {
+			String secondInputString = input.substring(3, input.length());
+			move(secondInputString);
 		}
-		//TODO: parsing logic for movement and compound statements
 		else {
-			System.out.println("That is not a valid command.");
+			System.out.println("That is not a valid command. Type 'help' for a list of commands.");
 		}
 	}
 
@@ -87,28 +85,29 @@ public class Application implements Serializable {
 		
 		//checks to see if the character can move based on his Orientation state
 		if(character.tryToMove()) {
-
-			//checks for direction in currentRoom.getExits();
-			System.out.println(currentRoom.getExits());
+			
+			
 			ArrayList<String> possibleExits = (ArrayList) currentRoom.getExits();
+			
+			//checks for direction in currentRoom.getExits();
 			if(possibleExits.contains(movementDirection)) {
-				System.out.println("Movement successful!");
-				System.out.println("You head towards the " + movementDirection + ".");
-				System.out.println("Unfortunately, I haven't figured out how to actually make this work with the room object yet...");
-
-				System.out.println("This is the exit room map: ");
-				System.out.println(currentRoom.getExitRoomMap());
-				
-				System.out.println("Does this exit map contain the current room? ");
-				System.out.println(currentRoom.getExitRoomMap().containsKey(currentRoom.getRoomID()));
 				
 				
-				//calls the character onMove() method for consequent actions, etc.
+				//TODO: sanitize input to ignore case sensitivity
+				//this post suggests using a TreeMap (Source: https://stackoverflow.com/questions/11929542/how-to-ignore-the-case-sensitive-when-we-look-for-a-key-in-the-map )
+				if(currentRoom.getExitRoomMap().containsKey(movementDirection)) {
+				
+					currentRoom = roomMap.get(currentRoom.getExitRoomMap().get(movementDirection).getRoomID());
+					System.out.println("\nYou head towards the " + movementDirection + ".\n");
+					lookAtCurrentRoom();		
+				}
+				
+				//TODO: calls the character onMove() method for consequent actions, etc. call the render() loop from this?
 				character.onMove();
 			}
 		}
 		else {
-			System.out.println("You can not currently move.");
+			System.out.println("\nYou can not currently move.");
 			System.out.println("You are " + character.orientationStatus);
 		}
 	}
@@ -120,37 +119,44 @@ public class Application implements Serializable {
 		System.out.println("Adventurer, what is your name?");
 		
 		
-		//TODO: create method to validate input
+		//TODO: create method to validate input when creating a name
 		String name = keyboard.nextLine();
 		
 		//how would we dynamically create variables here according to
 		//a database of existing characters?
-		//for now, just using a global character counter 
-		//and incrementing the name based on the counter?
 		
-		//or can we assume that each instance of the game will only
-		//have one character object per game?
-		
-		//should the character object be static since it is a first person game right now?
-		//why or why not?
 		character = new Character(name);
-
+		
 		character.displayInfo();
 		
-		//playing with Othman's Room object
 		currentRoom = new Room();
 		currentRoom = roomMap.get(1);
 
 		
 		//Need to figure out a way to create a monsterFactory 
 		//that will make sense of how monsters should spawn
+		//or... should there be only a finite number of monsters in this world? Because grinding is boring.
 		//this detail is important IMO, this goblin is a test object just for
 		//playing with behaviors and states TODO!
 
-		//TODO: Dynamically add monsters and the treasure they drop into the NPC list and a list of objects in a room 
+		//TODO: Dynamically add monsters and the treasure they drop into the NPC list and a list of objects in a room
+		//TODO: Figure out a way for these objects to be persistent by either writing to the JSON file or serializing them.
 		Goblin gobsnatch = new Goblin(5, 5, .5, .5, 1, 2, 1, "forest");
 		
 		System.out.println("Type 'help' (without the quotation marks) for more info on possible commands!");
 		
 	}
+	
+	public static void lookAtCurrentRoom() {
+		System.out.println("You are at: " + currentRoom.getRoomTitle());
+		
+		//TODO: roomDescription needs to be defined in the object
+		//System.out.println(currentRoom.getRoomDescription());
+		
+		//TODO: a list of objects that can be interacted with? ex: System.out.println("Objects on the ground: + currentRoom.getObjectsInTheRoom()");
+		System.out.println("Also here: " + currentRoom.getNpcList());
+		
+		System.out.println("Available exits: " + currentRoom.getExits());
+	}
+	
 }

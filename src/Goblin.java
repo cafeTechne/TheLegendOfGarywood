@@ -19,7 +19,7 @@ public class Goblin extends Monster{
 		super(hp, magicPoints, movementSpeed, attackSpeed, attackRange, sizeCategory, level, region);
 		
 		abilityList.add("taunt");
-		System.out.println("A drunken goblin stumbles in.");
+		System.out.println("\nA drunken goblin stumbles in.");
 		Application.currentRoom.addNpc(this);
 		
 
@@ -28,7 +28,7 @@ public class Goblin extends Monster{
 	
 	public void engageTarget(Character c) {
 		//1 turn towards target
-		System.out.println("The goblin blinks it's eyes in disbelief, draws a dagger, and begins hobbling towards " + c.getName() + " .\n");
+		System.out.println("\nThe goblin blinks it's eyes in disbelief, draws a dagger, and begins hobbling towards " + c.getName() + " .\n");
 		
 	};
 	

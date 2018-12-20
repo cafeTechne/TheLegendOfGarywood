@@ -79,12 +79,13 @@ public class Character implements CharacterInterface, Serializable{
     }
 
 	public void displayInfo() {
-		System.out.println("Your Character's name is: " + this.getName());
-		System.out.println("Your Character's Strength is :" + this.getStrength());
-		System.out.println("Your Character's Intelligence is :" + this.getIntelligence());
-		System.out.println("Your Character's Dexterity is :" + this.getDexterity());
-		System.out.println("Your Character's Guile is :" + this.getGuile());
-		System.out.println("Your Profession is: " + this.profession);
+		System.out.println("Your Character's stats are as follows: ");
+		System.out.println("Name: " + this.getName());
+		System.out.println("Strength :" + this.getStrength());
+		System.out.println("Intelligence :" + this.getIntelligence());
+		System.out.println("Dexterity :" + this.getDexterity());
+		System.out.println("Guile :" + this.getGuile());
+		System.out.println("Profession : " + this.profession);
 	}
 
 	public int getHealth() {
@@ -97,10 +98,11 @@ public class Character implements CharacterInterface, Serializable{
 	    
 	public void chooseProfession() {
 		ProfessionFactory professionFactory = new ProfessionFactory();
-		System.out.println("Choose a starting profession: 1 for Accountant");
-		System.out.println("Choose a starting profession: 2 for Janitor");
-		System.out.println("Choose a starting profession: 3 for Artist");
-		System.out.println("Choose a starting profession: 4 for Programmer");
+		System.out.println("Choose a starting profession: ");
+		System.out.println("1 for Accountant");
+		System.out.println("2 for Janitor");
+		System.out.println("3 for Artist");
+		System.out.println("4 for Programmer");
 		int newProfessionType = keyboard.nextInt();
 		modifyStartingStats(newProfessionType);
 		profession = professionFactory.chooseProfession(newProfessionType);
