@@ -14,7 +14,8 @@ public class Character implements CharacterInterface, Serializable{
 
 	//Orientation: prone, supine, kneeling, standing, sitting, 
 	//&& which direction they are facing (in radians or degrees).
-	public Orientation orientationStatus;
+	//Sets the default position at start to standing
+	public Orientation orientationStatus = new Standing();
 
 	
 	public Character(String name) {

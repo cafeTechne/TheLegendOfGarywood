@@ -46,11 +46,14 @@ public class Application implements Serializable {
 
 	}
 
+	//TODO: How to modularize input parsing for efficiency?
 	public static void input() {
 		System.out.println("\nUser, what would you like to do?");
 		String input = keyboard.nextLine();
 		
-		if(input.equals("look")) {
+		//TODO: logic for "look at goblin", or "look in hole in tree", for example... what is the best approach for this?
+		
+		if(input.equalsIgnoreCase("look")) {
 						
 			System.out.println("You are at: " + currentRoom.getRoomTitle());
 			
@@ -63,13 +66,16 @@ public class Application implements Serializable {
 			System.out.println("Available exits: " + currentRoom.getExits());
 			
 		}
-		else if(input.equals("info")) {
+		else if(input.equalsIgnoreCase("info")) {
 			System.out.println("Your character has the following stats:\n");
 			character.displayInfo();
 		}
-		else if(input.equals("help")) {
+		else if(input.equalsIgnoreCase("help")) {
 			System.out.println("The following are valid commands:\n");
 			System.out.println("look\ninfo\n");
+		}
+		else if(input.equalsIgnoreCase("go Wooden Door")) {
+			move("Wooden Door");
 		}
 		//TODO: parsing logic for movement and compound statements
 		else {
@@ -77,6 +83,36 @@ public class Application implements Serializable {
 		}
 	}
 
+	public static void move(String movementDirection) {
+		
+		//checks to see if the character can move based on his Orientation state
+		if(character.tryToMove()) {
+
+			//checks for direction in currentRoom.getExits();
+			System.out.println(currentRoom.getExits());
+			ArrayList<String> possibleExits = (ArrayList) currentRoom.getExits();
+			if(possibleExits.contains(movementDirection)) {
+				System.out.println("Movement successful!");
+				System.out.println("You head towards the " + movementDirection + ".");
+				System.out.println("Unfortunately, I haven't figured out how to actually make this work with the room object yet...");
+
+				System.out.println("This is the exit room map: ");
+				System.out.println(currentRoom.getExitRoomMap());
+				
+				System.out.println("Does this exit map contain the current room? ");
+				System.out.println(currentRoom.getExitRoomMap().containsKey(currentRoom.getRoomID()));
+				
+				
+				//calls the character onMove() method for consequent actions, etc.
+				character.onMove();
+			}
+		}
+		else {
+			System.out.println("You can not currently move.");
+			System.out.println("You are " + character.orientationStatus);
+		}
+	}
+	
 	public static void start() throws IOException {
 		//build game map
 		roomMap = new RoomBuilder().buildRoomLayout();
@@ -114,7 +150,7 @@ public class Application implements Serializable {
 		//TODO: Dynamically add monsters and the treasure they drop into the NPC list and a list of objects in a room 
 		Goblin gobsnatch = new Goblin(5, 5, .5, .5, 1, 2, 1, "forest");
 		
-		
+		System.out.println("Type 'help' (without the quotation marks) for more info on possible commands!");
 		
 	}
 }
