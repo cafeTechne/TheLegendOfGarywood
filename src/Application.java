@@ -48,7 +48,10 @@ public class Application implements Serializable {
 		
 		//TODO: logic for "look at goblin", or "look in hole in tree", for example... what is the best approach for this?
 		
-		if(input.equalsIgnoreCase("look")) {
+		if(input.equals("") || input.length() <1) {
+			System.out.println("That is an invalid command.");
+		}
+		else if(input.equalsIgnoreCase("look")) {
 			lookAtCurrentRoom();		
 		}
 		else if(input.equalsIgnoreCase("info")) {
@@ -56,20 +59,48 @@ public class Application implements Serializable {
 			character.displayInfo();
 		}
 		else if(input.equalsIgnoreCase("sit")) {
-			System.out.println("You sit down.");
-			character.setOrientationStatus(new Sitting());
+			if(character.getOrientationStatus() instanceof Sitting) {
+				System.out.println("You are already sitting.");
+			}
+			else {
+				System.out.println("You sit down.");
+				character.setOrientationStatus(new Sitting());	
+			}
+			
 		}
 		else if(input.equalsIgnoreCase("stand")) {
-			System.out.println("You stand up.");
-			character.setOrientationStatus(new Standing());
+			if(character.getOrientationStatus() instanceof Standing) {
+				System.out.println("You are already standing.");
+			}
+			else {
+				System.out.println("You stand up.");
+				character.setOrientationStatus(new Standing());	
+			}
 		}
 		else if(input.equalsIgnoreCase("lie")) {
-			System.out.println("You lie down into the supine position.");
-			character.setOrientationStatus(new Supine());
-		}		
+			if(character.getOrientationStatus() instanceof Supine || character.getOrientationStatus() instanceof Prone ) {
+				System.out.println("You are already lieing down.");
+			}
+			else {
+				System.out.println("You lie down into the supine position.");
+				character.setOrientationStatus(new Supine());	
+			}
+		}
+		else if(input.equalsIgnoreCase("kneel")) {
+			if(character.getOrientationStatus() instanceof Kneeling ) {
+				System.out.println("You are already kneeling.");
+			}
+			else {
+				System.out.println("You take a knee and kneel upon the ground.");
+				character.setOrientationStatus(new Kneeling());	
+			}
+		}
 		else if(input.equalsIgnoreCase("help")) {
 			System.out.println("The following are valid commands:\n");
-			System.out.println("look\ninfo\ngo\nsit\nstand\nlie\n");
+			System.out.println("look\ninfo\ngo\nsit\nstand\nlie\nkneel\n");
+		}
+		else if((input.substring(0, 2).equalsIgnoreCase("go") && input.length() == 2)) {
+			System.out.println("Where do you want to go?");
 		}
 		//TODO: Can we improve the generalization of the parsing for the go command here?
 		else if(input.substring(0, 2).equalsIgnoreCase("go")) {
@@ -104,6 +135,10 @@ public class Application implements Serializable {
 				
 				//TODO: calls the character onMove() method for consequent actions, etc. call the render() loop from this?
 				character.onMove();
+			}
+			else {
+				System.out.println(movementDirection + " is an invalid option.");
+				System.out.println("Available exits: " + currentRoom.getExits());
 			}
 		}
 		else {
@@ -156,7 +191,7 @@ public class Application implements Serializable {
 		//TODO: a list of objects that can be interacted with? ex: System.out.println("Objects on the ground: + currentRoom.getObjectsInTheRoom()");
 		System.out.println("Also here: " + currentRoom.getNpcList());
 		
-		System.out.println("Available exits: " + currentRoom.getExits());
+		System.out.println("Obvious exits: " + currentRoom.getExits());
 	}
 	
 }

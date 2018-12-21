@@ -77,6 +77,11 @@ public class Character implements CharacterInterface, Serializable{
         orientationStatus = newOrientationStatus;
 
     }
+    
+    public Orientation getOrientationStatus() {
+    	return orientationStatus;
+    }
+    
 
 	public void displayInfo() {
 		System.out.println("Your Character's stats are as follows: ");
@@ -103,7 +108,20 @@ public class Character implements CharacterInterface, Serializable{
 		System.out.println("2 for Janitor");
 		System.out.println("3 for Artist");
 		System.out.println("4 for Programmer");
-		int newProfessionType = keyboard.nextInt();
+		int newProfessionType;
+		//validates input
+		do {
+		    while (!keyboard.hasNextInt()) {
+		    	System.out.println("You must choose an integer between 1 and 4.");
+				System.out.println("1 for Accountant");
+				System.out.println("2 for Janitor");
+				System.out.println("3 for Artist");
+				System.out.println("4 for Programmer");
+				keyboard.next();
+		    }
+		    newProfessionType = keyboard.nextInt();
+		} while (newProfessionType <= 0);
+		
 		modifyStartingStats(newProfessionType);
 		profession = professionFactory.chooseProfession(newProfessionType);
 	}
@@ -114,10 +132,10 @@ public class Character implements CharacterInterface, Serializable{
 			this.setGuile(oldGuileValue + 10);
 		} else if(newProfessionType == 2) {
 			int oldStrengthValue = this.getStrength();
-			this.setGuile(oldStrengthValue + 10);
+			this.setStrength(oldStrengthValue + 10);
 		} else if(newProfessionType == 3) {
 			int oldDexterityValue = this.getDexterity();
-			this.setGuile(oldDexterityValue + 10);
+			this.setDexterity(oldDexterityValue + 10);
 		}else if(newProfessionType == 4) {
 			int oldIntelligenceValue = this.getIntelligence();
 			this.setIntelligence((oldIntelligenceValue + 10));
