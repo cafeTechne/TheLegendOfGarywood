@@ -10,7 +10,7 @@ public class Character implements CharacterInterface, Serializable{
 	private int health = 100;
 	private String name;
 	private Profession profession;
-	Scanner keyboard = new Scanner(System.in);
+	transient Scanner keyboard = new Scanner(System.in);
 
 	//Orientation: prone, supine, kneeling, standing, sitting, 
 	//&& which direction they are facing (in radians or degrees).

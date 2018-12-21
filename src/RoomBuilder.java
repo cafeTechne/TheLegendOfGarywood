@@ -4,11 +4,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileReader;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class RoomBuilder {
+public class RoomBuilder implements Serializable{
 
     private static final String ROOM_DIRECTORY = "rooms/";
     private static final String ROOM_JSON_FILE = "rooms.json";

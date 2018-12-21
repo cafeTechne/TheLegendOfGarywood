@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Treasure{
+public class Treasure implements Serializable{
 
 	
 	//treasure has items

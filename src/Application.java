@@ -4,7 +4,7 @@ import java.util.*;
 public class Application implements Serializable {
 
 	public static int characterCount = 0;
-	private static Scanner keyboard;
+	private static transient Scanner keyboard;
 	static boolean exitFlag = false;
 	public static Character character;
 	public static Map<Integer, Room> roomMap;
@@ -12,16 +12,12 @@ public class Application implements Serializable {
 	
 	
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
 		keyboard = new Scanner(System.in);
 		//TODO: run game opening animation
 		//openingAnimation();
 		
-
-		//TODO: Add game save & load logic. Serialization?
-		//TODO: prompt user for newGame or to continue
-		//prompt();
 		
 		//for testing, we just begin with start();
 		start();
@@ -35,20 +31,18 @@ public class Application implements Serializable {
 	    }
 		//TODO: Build out a GameEntity class and figure out a way to create UUIDs for all objects created,
 		//there's a lot to unpack with implementing this though
-		
-		//TODO: structure a basic game loop and create input validation for basic text based commands!
 
 	}
 
 	
 	//TODO: How to modularize input parsing for efficiency?
-	public static void input() {
+	public static void input() throws IOException {
 		System.out.println("\nUser, what would you like to do?");
 		String input = keyboard.nextLine();
 		
 		//TODO: logic for "look at goblin", or "look in hole in tree", for example... what is the best approach for this?
 		
-		if(input.equals("") || input.length() <1) {
+		if(input.equals("") || input.length() <=1) {
 			System.out.println("That is an invalid command.");
 		}
 		else if(input.equalsIgnoreCase("look")) {
@@ -97,7 +91,13 @@ public class Application implements Serializable {
 		}
 		else if(input.equalsIgnoreCase("help")) {
 			System.out.println("The following are valid commands:\n");
-			System.out.println("look\ninfo\ngo\nsit\nstand\nlie\nkneel\n");
+			System.out.println("look\ninfo\ngo\nsit\nstand\nlie\nkneel\nexit\nsave\n");
+		}
+		else if(input.equalsIgnoreCase("exit")) {
+			exit();
+		}
+		else if(input.equalsIgnoreCase("save")) {
+			saveGame();
 		}
 		else if((input.substring(0, 2).equalsIgnoreCase("go") && input.length() == 2)) {
 			System.out.println("Where do you want to go?");
@@ -147,15 +147,17 @@ public class Application implements Serializable {
 		}
 	}
 	
-	public static void start() throws IOException {
+	public static void newGame() {
 		//build game map
 		roomMap = new RoomBuilder().buildRoomLayout();
 
 		System.out.println("Adventurer, what is your name?");
 		
-		
-		//TODO: create method to validate input when creating a name
+		//clears the end of line character from the previous nextInt() call
+		keyboard.nextLine();
 		String name = keyboard.nextLine();
+		//TODO: create method to validate input when creating a name
+		
 		
 		//how would we dynamically create variables here according to
 		//a database of existing characters?
@@ -182,10 +184,30 @@ public class Application implements Serializable {
 		
 	}
 	
+	
+	public static void start() throws FileNotFoundException, IOException, ClassNotFoundException {
+		System.out.println("User, would you like to start a new game or continue?");
+		System.out.println("Press 1 for a New Game");
+		System.out.println("Press 2 to Continue");
+		int choice = keyboard.nextInt();
+		//TODO: validation loop versus just exiting
+		if(choice == 1) {
+			newGame();
+		}
+		else if(choice == 2) {
+			loadGame();
+		}
+		else {
+			System.out.println("Neither of those choices is valid. Exiting");
+			System.exit(0);
+		}
+	}
+	
 	public static void lookAtCurrentRoom() {
 		System.out.println("You are at: " + currentRoom.getRoomTitle());
 		
 		//TODO: roomDescription needs to be defined in the object
+		//example call:
 		//System.out.println(currentRoom.getRoomDescription());
 		
 		//TODO: a list of objects that can be interacted with? ex: System.out.println("Objects on the ground: + currentRoom.getObjectsInTheRoom()");
@@ -193,5 +215,66 @@ public class Application implements Serializable {
 		
 		System.out.println("Obvious exits: " + currentRoom.getExits());
 	}
+	
+	public static void exit() {
+		//Gives user the option to save data?
+		System.out.println("User, would you like to save before exiting?");
+		keyboard.nextLine();
+		
+		System.exit(0);
+	}
+
+	 static File fileName = new File("saveData");
+	 
+	 
+	 public static void saveGame() throws IOException {
+		    
+		    //TODO: need to set the data before writing to a file
+		    
+		    Character characterSave = character;
+			Map<Integer, Room> roomMapSave = roomMap;
+			Room currentRoomSave =currentRoom;
+			
+			//store these references in an array of Objects
+			Object[] savedObjectsArray = new Object[3];
+			
+			savedObjectsArray[0] = characterSave;
+			savedObjectsArray[1] = roomMapSave;
+			savedObjectsArray[2] = currentRoomSave;
+					
+			
+		    FileOutputStream fileOut = new FileOutputStream(fileName);
+		    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		    
+		    out.writeObject(savedObjectsArray);
+		    
+		    out.close();
+		}
+
+		public static void loadGame() throws FileNotFoundException, IOException, ClassNotFoundException {
+
+		    character = null;
+		    roomMap = null;
+			currentRoom = null;
+			
+		    FileInputStream fileIn = new FileInputStream(fileName);
+		    ObjectInputStream in = new ObjectInputStream(fileIn);
+
+		    Object[] savedObjectsArray = new Object[3];
+		    
+		    savedObjectsArray = (Object[]) in.readObject();
+		    
+		    character = (Character) savedObjectsArray[0];
+		    //what is this error about safety eclipse is giving me all about?
+			roomMap = (Map<Integer, Room>) savedObjectsArray[1];
+			currentRoom = (Room) savedObjectsArray[2];
+
+		    //how do we make use of this application object now?
+
+		    in.close();
+		    fileIn.close();
+
+		}
+	
 	
 }
