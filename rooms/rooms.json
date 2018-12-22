@@ -4,6 +4,9 @@
     {
       "roomID": "1",
       "roomTitle": "Entrance",
+      "roomDescription": "This room is boring.",
+      "objectList": 
+      [],
       "exits":
       [
         "Wooden Door"
@@ -18,6 +21,9 @@
     {
       "roomID": "2",
       "roomTitle": "Hallway",
+      "roomDescription": "This room is not boring.",
+      "objectList": 
+      [],
       "exits":
       [
         "Wooden Door"

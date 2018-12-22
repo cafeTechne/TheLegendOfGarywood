@@ -206,11 +206,10 @@ public class Application implements Serializable {
 	public static void lookAtCurrentRoom() {
 		System.out.println("You are at: " + currentRoom.getRoomTitle());
 		
-		//TODO: roomDescription needs to be defined in the object
-		//example call:
-		//System.out.println(currentRoom.getRoomDescription());
+		System.out.println("Description: " + currentRoom.getRoomDescription());
 		
-		//TODO: a list of objects that can be interacted with? ex: System.out.println("Objects on the ground: + currentRoom.getObjectsInTheRoom()");
+		System.out.println("Objects here: " + currentRoom.getObjectList());
+		
 		System.out.println("Also here: " + currentRoom.getNpcList());
 		
 		System.out.println("Obvious exits: " + currentRoom.getExits());
