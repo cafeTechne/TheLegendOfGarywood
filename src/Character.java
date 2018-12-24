@@ -1,7 +1,7 @@
 import java.io.Serializable;
 import java.util.*;
 
-public class Character implements CharacterInterface, Serializable{
+public class Character extends Entity implements CharacterInterface, Serializable{
 
 	private int intelligence = 1;
 	private int strength = 1; 
@@ -91,6 +91,7 @@ public class Character implements CharacterInterface, Serializable{
 		System.out.println("Dexterity :" + this.getDexterity());
 		System.out.println("Guile :" + this.getGuile());
 		System.out.println("Profession : " + this.profession);
+		System.out.println("Abilities: " + this.profession.getAbilityList());
 	}
 
 	public int getHealth() {

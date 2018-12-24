@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class NPC implements Serializable {
+public class NPC extends Entity implements Serializable {
 
     String name;
 

@@ -3,17 +3,17 @@ import java.util.ArrayList;
 
 public class Profession implements Serializable {
 	
-	private ArrayList<Ability> abilityList = new ArrayList<Ability>();
+	private ArrayList<AbilityInterface> abilityList = new ArrayList<AbilityInterface>();
 
-	public ArrayList<Ability> getAbilityList() {
+	public ArrayList<AbilityInterface> getAbilityList() {
 		return abilityList;
 	}
 
-	public void setAbilityList(ArrayList<Ability> abilityList) {
+	public void setAbilityList(ArrayList<AbilityInterface> abilityList) {
 		this.abilityList = abilityList;
 	}
 	
-	public void addAbility(Ability abilityObject) {
+	public void addAbility(AbilityInterface abilityObject) {
 		abilityList.add(abilityObject);
 	}
 	
