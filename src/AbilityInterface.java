@@ -281,8 +281,8 @@ class Calculate extends AnalysisBasedSkill implements AbilityInterface, Serializ
 		
 		//apply ability towards the target
 		System.out.println("You size up the entity before you. Taking everything you can perceive into account.");
-		System.out.println("Target's hit points: " + target.hp);
-		System.out.println("Target's magic points: " + target.mp);
+		System.out.println("Target's hit points: " + target.getHealth());
+		System.out.println("Target's magic points: " + target.getMana());
 		//System.out.println("Target's abilities: " + target.mp);
 	};
 	

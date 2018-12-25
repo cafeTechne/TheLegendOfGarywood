@@ -7,17 +7,12 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 	private int strength = 1; 
 	private int dexterity = 1;
 	private int guile = 1;
-	private int health = 100;
+	
 	private String name;
 	private Profession profession;
 	transient Scanner keyboard = new Scanner(System.in);
 
-	//Orientation: prone, supine, kneeling, standing, sitting, 
-	//&& which direction they are facing (in radians or degrees).
-	//Sets the default position at start to standing
-	public Orientation orientationStatus = new Standing();
 
-	
 	public Character(String name) {
 		this.setIntelligence((int) (25 + ((Math.random()*25) +1)));
 		this.setStrength((int) (25 + ((Math.random()*50) +1)));
@@ -27,7 +22,7 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 		this.setHealth(100);
 		
 		//sets the location to the starting location
-		Location currentLocation = new Location(1.0, 1.0, 1);
+		currentLocation = new Location(1.0, 1.0, 1);
 
 		//choose profession
 		chooseProfession();
@@ -66,22 +61,7 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 	}
 	
 	
-	public boolean tryToMove(){
-		
-		return orientationStatus.tryToMove();
-		        
-	}
-
-    public void setOrientationStatus(Orientation newOrientationStatus){
-
-        orientationStatus = newOrientationStatus;
-
-    }
-    
-    public Orientation getOrientationStatus() {
-    	return orientationStatus;
-    }
-    
+	
 
 	public void displayInfo() {
 		System.out.println("Your Character's stats are as follows: ");
@@ -90,16 +70,9 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 		System.out.println("Intelligence :" + this.getIntelligence());
 		System.out.println("Dexterity :" + this.getDexterity());
 		System.out.println("Guile :" + this.getGuile());
-		System.out.println("Profession : " + this.profession);
+		System.out.println("Profession : " + this.getProfession());
 		System.out.println("Abilities: " + this.profession.getAbilityList());
-	}
-
-	public int getHealth() {
-		return health;
-	}
-
-	public void setHealth(int health) {
-		this.health = health;
+		System.out.println("Current Emotion: " + this.getCurrentEmotion());
 	}
 	    
 	public void chooseProfession() {
@@ -152,6 +125,14 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 	}
 
 	
+	public Profession getProfession() {
+		return profession;
+	}
+
+	public void setProfession(Profession profession) {
+		this.profession = profession;
+	}
+
 	/**
 	 *  In this method we are going to handle the character's movement patterns.
 	 *  We will also trigger the movement animation.
@@ -198,10 +179,6 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 	public void onActionTrigger() {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	public void changeDirection(double directionTarget) {
-		orientationStatus.setDirection(directionTarget);
 	}
 	
 	

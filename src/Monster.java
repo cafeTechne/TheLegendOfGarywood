@@ -5,18 +5,17 @@ public class Monster extends NPC implements MonsterInterface{
 	
 	//set 10 hp to be the lowest a monster could possibly start off with
 	private int level = 1;
-	private int hitPoints = 10;
-	private int magicPoints = 0;
-	private double movementSpeed = 1;
-	private double attackSpeed = 1;
-	private double attackRange = 1;
-	//set an enum type system for creature size where 3 is humanoid size, 2 is halfling size, 1 is tiny, 4 is giant size, 5 is gargantuan, etc.
+	
+	//TODO: Should monsters be allowed to level up if there are a finite number of them?
+	private int currentExperience = 1;
+
+	
+	//TODO: set an enum type system for creature size where 3 is humanoid size, 2 is halfling size, 1 is tiny, 4 is giant size, 5 is gargantuan, etc.
 	private int sizeCategory = 3;
-	
-	//the monster's orientation in space (state)
-	private Orientation monsterOrientationStatus;
-	
-	//holds a state object, since it has only one state at a time
+		
+	//holds the behavioral state object, since it has only one state at a time
+	//example: running, fighting, sleeping, etc.
+	//TODO: Should this be moved to the Entity class? Think about FEAR spells that make a character RUN AWAY... hmmm. Makes me think: yes.
 	private State currentState;
 	
 	//a list of the monster's abilities,
@@ -35,14 +34,17 @@ public class Monster extends NPC implements MonsterInterface{
 	
 	
 	public Monster(int hp, int magicPoints, double movementSpeed, double attackSpeed, double attackRange, int sizeCategory, int level, String region) {
-		this.setHitPoints(hp);
+		this.setHealth(hp);
+		this.setMana(magicPoints);
+		
 		this.setAttackSpeed(attackSpeed);
 		this.setSizeCategory(sizeCategory);
 		this.setAbilityList(abilityList);
-		this.setMagicPoints(magicPoints);
+		
 		this.setMovementSpeed(movementSpeed);
 		this.setAttackRange(attackRange);
 		this.loot = new Treasure(level, region);
+		this.setOrientationStatus(new Standing());
 	}
 
 
@@ -50,46 +52,6 @@ public class Monster extends NPC implements MonsterInterface{
 		currentState.execute(this);
 	}
 	
-	public int getHitPoints() {
-		return hitPoints;
-	}
-
-
-	public void setHitPoints(int hitPoints) {
-		this.hitPoints = hitPoints;
-	}
-
-
-	public int getMagicPoints() {
-		return magicPoints;
-	}
-
-
-	public void setMagicPoints(int magicPoints) {
-		this.magicPoints = magicPoints;
-	}
-
-
-	public double getMovementSpeed() {
-		return movementSpeed;
-	}
-
-
-	public void setMovementSpeed(double movementSpeed) {
-		this.movementSpeed = movementSpeed;
-	}
-
-
-	public double getAttackSpeed() {
-		return attackSpeed;
-	}
-
-
-	public void setAttackSpeed(double attackSpeed) {
-		this.attackSpeed = attackSpeed;
-	}
-
-
 	public int getSizeCategory() {
 		return sizeCategory;
 	}
@@ -110,21 +72,13 @@ public class Monster extends NPC implements MonsterInterface{
 	}
 
 
-	public double getAttackRange() {
-		return attackRange;
-	}
-
-
-	public void setAttackRange(double attackRange) {
-		this.attackRange = attackRange;
-	}
-
 	
 	public void takeDamage(int hp) {
-		this.hitPoints = this.hitPoints-hp;
+		this.setHealth(this.getHealth() - hp);
 		
-		if(this.hitPoints <= 0) {
+		if(this.getHealth() <= 0) {
 			//Monster dies.
+			//TODO: Monster death logic
 			onMonsterDeath();
 		}
 	}
@@ -226,28 +180,11 @@ public class Monster extends NPC implements MonsterInterface{
 	
 	public boolean tryToMove(){
 		
-		return monsterOrientationStatus.tryToMove();
+		return orientationStatus.tryToMove();
 		        
 	}
 
-	//this allows us to establish the orientation of a monster... i.e. is it kneeling,
-	//sitting, prone, supine, etc.
-    public void setOrientationStatus(Orientation newOrientationStatus){
-
-        monsterOrientationStatus = newOrientationStatus;
-
-    }
-
-	public String getOrientation() {
-		return monsterOrientationStatus.getOrientation();
-	}
-	public double getDirection() {
-		return monsterOrientationStatus.getDirection();
-	}
-
-	public void setDirection(double direction) {
-		monsterOrientationStatus.setDirection(direction);
-	}
+	
 	
 	
 }
