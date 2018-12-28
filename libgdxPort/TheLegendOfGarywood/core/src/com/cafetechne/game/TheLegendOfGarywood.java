@@ -5,35 +5,48 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class TheLegendOfGarywood extends Game {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
+	public SpriteBatch batch;
+    public Texture img;
+    public BitmapFont font;
+
+    @Override
 	public void create () {
-		//batch = new SpriteBatch();
+		batch = new SpriteBatch();
 		//img = new Texture("badlogic.jpg");
+		//when we leave this blank we use the default Arial Font
+		font = new BitmapFont();
 		showStartScreen();
+
 	}
 
 
 	public void showStartScreen(){
-		setScreen(new StartScreen(this));
+		this.setScreen(new StartScreen(this));
 	}
 
 	public void showNewGameScreen(){
-		setScreen(new StartScreen(this));
+        this.setScreen(new StartScreen(this));
 	}
 
 	public void showContinueScreen(){
-		setScreen(new StartScreen(this));
+        this.setScreen(new StartScreen(this));
 	}
 
 	public void showStartOptionsScreen(){
-		setScreen(new StartScreen(this));
+        this.setScreen(new StartScreen(this));
 	}
 
+	public void render(){
+	    super.render();
+    }
+
+    public void dispose(){
+	    batch.dispose();
+	    font.dispose();
+    }
 
 }

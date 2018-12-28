@@ -15,15 +15,15 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class StartScreen extends InputAdapter implements Screen {
 
+    //with a reference to the game object we don't need to reinstantiate resources!
+    final TheLegendOfGarywood game;
 
-    TheLegendOfGarywood game;
 
-    SpriteBatch batch;
     FitViewport viewport;
 
-    BitmapFont font;
 
-    public StartScreen(TheLegendOfGarywood game){
+
+    public StartScreen(final TheLegendOfGarywood game){
         this.game = game;
     }
 
@@ -31,15 +31,19 @@ public class StartScreen extends InputAdapter implements Screen {
     @Override
     public void show() {
 
-        batch = new SpriteBatch();
+        //batch = new SpriteBatch();
 
         //setup a FitViewport with the constant appropriate for this screen
         viewport = new FitViewport(Constants.START_SCREEN_WORLD_SIZE, Constants.START_SCREEN_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
 
-        font = new BitmapFont();
-        font.getData().setScale(Constants.START_SCREEN_LABEL_SCALE);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        //font = new BitmapFont();
+        //do we even need to make these calls? When I take them out they just make it so the text doesn't scale up
+        //which is ok because the font looks like shit when scaled up this way
+        //TODO: Learn how to import ttf fonts
+
+        //game.font.getData().setScale(Constants.START_SCREEN_LABEL_SCALE);
+        //game.font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     @Override
@@ -49,21 +53,24 @@ public class StartScreen extends InputAdapter implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-        batch.setProjectionMatrix(viewport.getCamera().combined);
+        game.batch.setProjectionMatrix(viewport.getCamera().combined);
+        game.batch.begin();
 
-        batch.begin();
-
-        final GlyphLayout newGameLayout = new GlyphLayout(font, Constants.NEWGAME_LABEL);
-        font.draw(batch, Constants.NEWGAME_LABEL, Constants.NEWGAME_CENTER.x, Constants.NEWGAME_CENTER.y + newGameLayout.height / 2, 0, Align.center, false);
-
-        final GlyphLayout continueLayout = new GlyphLayout(font, Constants.CONTINUE_LABEL);
-        font.draw(batch, Constants.CONTINUE_LABEL, Constants.CONTINUE_CENTER.x, Constants.CONTINUE_CENTER.y + continueLayout.height / 2, 0, Align.center, false);
-
-        final GlyphLayout optionsLayout = new GlyphLayout(font, Constants.OPTIONS_LABEL);
-        font.draw(batch, Constants.OPTIONS_LABEL, Constants.OPTIONS_CENTER.x, Constants.OPTIONS_CENTER.y + optionsLayout.height / 2, 0, Align.center, false);
+        //this is an easier way to draw text to the screen than the method directly below this
+        game.font.draw(game.batch, "This is some text--test!", 100, 150);
 
 
-        batch.end();
+        final GlyphLayout newGameLayout = new GlyphLayout(game.font, Constants.NEWGAME_LABEL);
+        game.font.draw(game.batch, Constants.NEWGAME_LABEL, Constants.NEWGAME_CENTER.x, Constants.NEWGAME_CENTER.y + newGameLayout.height / 2, 0, Align.center, false);
+
+        final GlyphLayout continueLayout = new GlyphLayout(game.font, Constants.CONTINUE_LABEL);
+        game.font.draw(game.batch, Constants.CONTINUE_LABEL, Constants.CONTINUE_CENTER.x, Constants.CONTINUE_CENTER.y + continueLayout.height / 2, 0, Align.center, false);
+
+        final GlyphLayout optionsLayout = new GlyphLayout(game.font, Constants.OPTIONS_LABEL);
+        game.font.draw(game.batch, Constants.OPTIONS_LABEL, Constants.OPTIONS_CENTER.x, Constants.OPTIONS_CENTER.y + optionsLayout.height / 2, 0, Align.center, false);
+
+
+        game.batch.end();
     }
 
     @Override
@@ -83,8 +90,8 @@ public class StartScreen extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
-        batch.dispose();
-        font.dispose();
+        game.batch.dispose();
+        game.font.dispose();
 
     }
 
@@ -99,17 +106,22 @@ public class StartScreen extends InputAdapter implements Screen {
 
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
+
+        /*This way of setting up buttons is just unsustainable... getting into scene2d.ui to do it the real way */
         //TODO: set for the coordinates/region of the button to be pressed--this needs TLC based on design
         if (worldTouch.dst(Constants.NEWGAME_CENTER) < Constants.START_SCREEN_BUTTON_RADIUS) {
-            game.showNewGameScreen();
+            //game.showNewGameScreen();
+            System.out.println("Touched the newgame button");
         }
 
         if (worldTouch.dst(Constants.CONTINUE_CENTER) < Constants.START_SCREEN_BUTTON_RADIUS) {
-            game.showContinueScreen();
+            //game.showContinueScreen();
+            System.out.println("Touched the continue button");
         }
 
         if (worldTouch.dst(Constants.OPTIONS_CENTER) < Constants.START_SCREEN_BUTTON_RADIUS) {
-            game.showStartOptionsScreen();
+            //game.showStartOptionsScreen();
+            System.out.println("Touched the options button");
         }
 
         return true;
