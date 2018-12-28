@@ -4,12 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -31,11 +29,13 @@ public class StartScreen extends InputAdapter implements Screen {
     @Override
     public void show() {
 
-        //batch = new SpriteBatch();
-
         //setup a FitViewport with the constant appropriate for this screen
         viewport = new FitViewport(Constants.START_SCREEN_WORLD_SIZE, Constants.START_SCREEN_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
+
+        game.assets.load("skins/uiskin.json", Skin.class);
+        game.assets.load("icons/icons.atlas", TextureAtlas.class);
+
 
         //font = new BitmapFont();
         //do we even need to make these calls? When I take them out they just make it so the text doesn't scale up
@@ -53,24 +53,24 @@ public class StartScreen extends InputAdapter implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-        game.batch.setProjectionMatrix(viewport.getCamera().combined);
-        game.batch.begin();
+        game.spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
+        game.spriteBatch.begin();
 
         //this is an easier way to draw text to the screen than the method directly below this
-        game.font.draw(game.batch, "This is some text--test!", 100, 150);
+        game.font.draw(game.spriteBatch, "This is some text--test!", 100, 150);
 
 
         final GlyphLayout newGameLayout = new GlyphLayout(game.font, Constants.NEWGAME_LABEL);
-        game.font.draw(game.batch, Constants.NEWGAME_LABEL, Constants.NEWGAME_CENTER.x, Constants.NEWGAME_CENTER.y + newGameLayout.height / 2, 0, Align.center, false);
+        game.font.draw(game.spriteBatch, Constants.NEWGAME_LABEL, Constants.NEWGAME_CENTER.x, Constants.NEWGAME_CENTER.y + newGameLayout.height / 2, 0, Align.center, false);
 
         final GlyphLayout continueLayout = new GlyphLayout(game.font, Constants.CONTINUE_LABEL);
-        game.font.draw(game.batch, Constants.CONTINUE_LABEL, Constants.CONTINUE_CENTER.x, Constants.CONTINUE_CENTER.y + continueLayout.height / 2, 0, Align.center, false);
+        game.font.draw(game.spriteBatch, Constants.CONTINUE_LABEL, Constants.CONTINUE_CENTER.x, Constants.CONTINUE_CENTER.y + continueLayout.height / 2, 0, Align.center, false);
 
         final GlyphLayout optionsLayout = new GlyphLayout(game.font, Constants.OPTIONS_LABEL);
-        game.font.draw(game.batch, Constants.OPTIONS_LABEL, Constants.OPTIONS_CENTER.x, Constants.OPTIONS_CENTER.y + optionsLayout.height / 2, 0, Align.center, false);
+        game.font.draw(game.spriteBatch, Constants.OPTIONS_LABEL, Constants.OPTIONS_CENTER.x, Constants.OPTIONS_CENTER.y + optionsLayout.height / 2, 0, Align.center, false);
 
 
-        game.batch.end();
+        game.spriteBatch.end();
     }
 
     @Override
@@ -90,8 +90,10 @@ public class StartScreen extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
-        game.batch.dispose();
-        game.font.dispose();
+        //when i comment these out, the game stops crashing:
+
+        //game.spriteBatch.dispose();
+        //game.font.dispose();
 
     }
 

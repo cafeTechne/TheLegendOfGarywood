@@ -1,3 +1,26 @@
+/* Copyright (c) 2018 cafeTechne
+ *
+ * The MIT License (MIT)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+
 package com.cafetechne.game;
 
 
@@ -11,6 +34,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+
+
 
 public class GameScreen implements Screen {
 
@@ -84,18 +109,18 @@ public class GameScreen implements Screen {
 
         // tell the SpriteBatch to render in the
         // coordinate system specified by the camera.
-        game.batch.setProjectionMatrix(viewport.getCamera().combined);
+        game.spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
 
 
         //TODO: need a way to pull room data here and then use it to populate objects in the view
 
         // begin a new batch and draw the mainCharacter and
         // all enemies/objects/etc.
-        game.font.draw(game.batch, "Gold: " + goldCollected, 0, 480);
-        game.batch.draw(mainCharacterSprite, mainCharacterHitBox.x, mainCharacterHitBox.y, mainCharacterHitBox.width, mainCharacterHitBox.height);
+        game.font.draw(game.spriteBatch, "Gold: " + goldCollected, 0, 480);
+        game.spriteBatch.draw(mainCharacterSprite, mainCharacterHitBox.x, mainCharacterHitBox.y, mainCharacterHitBox.width, mainCharacterHitBox.height);
 
 
-        game.batch.end();
+        game.spriteBatch.end();
 
         //TODO: Meaningfully process input
 /*
