@@ -54,6 +54,13 @@ public class SplashScreen implements Screen {
 
     private Texture splash;
 
+    TheLegendOfGarywood game;
+
+    public SplashScreen(){
+
+    }
+
+
     @Override
     public void show() {
         TheLegendOfGarywood.assets.load("textures/splash.png", Texture.class);
@@ -65,6 +72,8 @@ public class SplashScreen implements Screen {
 
         camera = new OrthographicCamera();
         viewport = new FitViewport(splash.getWidth(), splash.getHeight(), camera);
+
+        game = (TheLegendOfGarywood) TheLegendOfGarywood.game;
     }
 
     @Override
@@ -76,9 +85,7 @@ public class SplashScreen implements Screen {
     public void render(float deltaTime) {
         if (TheLegendOfGarywood.assets.update() && minimumShowTime <= 0) {
 
-            //artifact from the original demo from Daniel Holderbaum
-           // TheLegendOfGarywood.game.setScreen(new InventoryScreen());
-
+            TheLegendOfGarywood.game.setScreen(new StartScreen(game));
         }
 
         Gdx.gl.glClearColor(0.15f, 0.15f, 0.15f, 0f);

@@ -16,9 +16,7 @@ public class StartScreen extends InputAdapter implements Screen {
     //with a reference to the game object we don't need to reinstantiate resources!
     final TheLegendOfGarywood game;
 
-
     FitViewport viewport;
-
 
 
     public StartScreen(final TheLegendOfGarywood game){
@@ -33,17 +31,9 @@ public class StartScreen extends InputAdapter implements Screen {
         viewport = new FitViewport(Constants.START_SCREEN_WORLD_SIZE, Constants.START_SCREEN_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
 
+        //TODO: apply styling with scene2d.ui
         game.assets.load("skins/uiskin.json", Skin.class);
         game.assets.load("icons/icons.atlas", TextureAtlas.class);
-
-
-        //font = new BitmapFont();
-        //do we even need to make these calls? When I take them out they just make it so the text doesn't scale up
-        //which is ok because the font looks like shit when scaled up this way
-        //TODO: Learn how to import ttf fonts
-
-        //game.font.getData().setScale(Constants.START_SCREEN_LABEL_SCALE);
-        //game.font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     @Override

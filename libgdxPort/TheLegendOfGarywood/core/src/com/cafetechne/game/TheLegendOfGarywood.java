@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.utils.Logger;
 import com.cafetechne.game.inventory.InventoryScreen;
@@ -29,17 +30,19 @@ public class TheLegendOfGarywood extends Game {
     };
 
 
-
+    public static final Random random = new Random();
 
     public Texture img;
 
-    public BitmapFont font;
+    //freetype font declaration
+    public static FreeTypeFontGenerator fontGenerator;
+    public static FreeTypeFontGenerator.FreeTypeFontParameter textParameter;
+    public static BitmapFont font;
+
 
 	public static final Logger logger = new Logger("LibGDX Utils");
 
 	public static final AssetManager assets = new AssetManager();
-
-	public static final Random random = new Random();
 
 	public static SpriteBatch spriteBatch;
 
@@ -47,12 +50,7 @@ public class TheLegendOfGarywood extends Game {
 
     public static TextureAtlas icons;
 
-    //com.cafetechne.game.TheLegendOfGarywood.assets.get("icons/icons.atlas", TextureAtlas.class);
-
-    //TextureRegion icon = icons.findRegion(SlotSource.payloadSlot.getItem().getTextureRegion());
-
-
-		@Override
+    @Override
 	public void create () {
 			try {
 				logger.setLevel(Logger.DEBUG);
@@ -65,18 +63,19 @@ public class TheLegendOfGarywood extends Game {
 
                 icons = new TextureAtlas(new FileHandle("icons/icons.atlas"));
 
-                //batch = new SpriteBatch();
-                //img = new Texture("badlogic.jpg");
-                //when we leave this blank we use the default Arial Font
-                font = new BitmapFont();
+                fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/PressStart2P-Regular.ttf"));
+                textParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+                textParameter.size = 16;
+                font = fontGenerator.generateFont(textParameter);
+
 
                 //normally we will start the startScreen first, but here we are testing the inventory screen as of now
 
+                //showInventoryScreen();
 
-                showInventoryScreen();
 
-                //this works but there is no way set up to break out of it as of yet...
-               // showStartScreen();
+               showStartScreen();
 
                 //working once more
                //setScreen(new SplashScreen());
@@ -98,17 +97,24 @@ public class TheLegendOfGarywood extends Game {
         this.setScreen(new StartScreen(this));
 	}
 
-    public void showInventoryScreen(){
+	//TODO: Clean up the Inventory Screen UI and make it function with game mechanics
+    public void showInventoryScreen() {
         this.setScreen(new InventoryScreen());
     }
 
+   //TODO: Make a Continue Screen and game save mechanics
+    /*
 	public void showContinueScreen(){
-        this.setScreen(new StartScreen(this));
+        this.setScreen(new ContinueScreen(this));
 	}
+    */
 
+	//TODO: Make a Start Options Screen w/ appropriate start options
+    /*
 	public void showStartOptionsScreen(){
-        this.setScreen(new StartScreen(this));
+        //this.setScreen(new StartOptionsScreen(this));
 	}
+	*/
 
 	public void render(){
 	    super.render();
@@ -116,7 +122,10 @@ public class TheLegendOfGarywood extends Game {
 
     public void dispose(){
 	    spriteBatch.dispose();
-	    font.dispose();
+	    //throwing an error when I try to dispose of this font here... hmmm
+	    //font.dispose();
+        fontGenerator.dispose(); // don't forget to dispose to avoid memory leaks!
+
     }
 
 }
