@@ -9,12 +9,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.utils.Logger;
 import com.cafetechne.game.inventory.InventoryScreen;
-import com.cafetechne.game.inventory.SlotSource;
+
 
 import java.util.Random;
 
@@ -25,10 +24,9 @@ public class TheLegendOfGarywood extends Game {
 
         @Override
         public void create() {
-            setScreen(new SplashScreen());
+    //        setScreen(new SplashScreen(this));
         }
     };
-
 
     public static final Random random = new Random();
 
@@ -66,18 +64,21 @@ public class TheLegendOfGarywood extends Game {
                 fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/PressStart2P-Regular.ttf"));
                 textParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
-                textParameter.size = 16;
+                textParameter.size = 18;
                 font = fontGenerator.generateFont(textParameter);
+
+                setScreen(new SplashScreen(this));
 
 
                 //normally we will start the startScreen first, but here we are testing the inventory screen as of now
 
                 //showInventoryScreen();
 
+                //setScreen(new SplashScreen());
+                //showStartScreen();
 
-               showStartScreen();
 
-                //working once more
+
                //setScreen(new SplashScreen());
 
 
@@ -90,7 +91,7 @@ public class TheLegendOfGarywood extends Game {
 
 
 	public void showStartScreen(){
-		this.setScreen(new StartScreen(this));
+		setScreen(new StartScreen(this));
 	}
 
 	public void showNewGameScreen(){
@@ -109,12 +110,12 @@ public class TheLegendOfGarywood extends Game {
 	}
     */
 
-	//TODO: Make a Start Options Screen w/ appropriate start options
-    /*
-	public void showStartOptionsScreen(){
-        //this.setScreen(new StartOptionsScreen(this));
+	//TODO: Make a Settings Screen w/ appropriate start options
+
+	public void showSettingsScreen(){
+        //this.setScreen(new SettingsScreen(this));
 	}
-	*/
+
 
 	public void render(){
 	    super.render();
@@ -122,8 +123,10 @@ public class TheLegendOfGarywood extends Game {
 
     public void dispose(){
 	    spriteBatch.dispose();
-	    //throwing an error when I try to dispose of this font here... hmmm
-	    //font.dispose();
+
+	    //when running from commandline using ./gradlew :desktop:run , the assets must be in the Android folder
+        //otherwise the play button at the top of android studio is set to the core file folder...
+	    font.dispose();
         fontGenerator.dispose(); // don't forget to dispose to avoid memory leaks!
 
     }
