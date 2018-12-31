@@ -62,8 +62,7 @@ public class GameScreen implements Screen {
 
         //how we set up sound
         swordSwingSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        gameMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-        gameMusic.setLooping(true);
+
 
 
         //This code is from the documentation but isn't it better to use the viewport class?

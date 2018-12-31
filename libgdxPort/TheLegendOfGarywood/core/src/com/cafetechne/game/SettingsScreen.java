@@ -1,24 +1,28 @@
 package com.cafetechne.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
+
+import com.badlogic.gdx.Input.Keys;
 
 public class SettingsScreen extends InputAdapter implements Screen {
 
@@ -34,6 +38,7 @@ public class SettingsScreen extends InputAdapter implements Screen {
     private Skin skin;
     private Label gameVolumeSliderLabel, musicVolumeSliderLabel, settingsScreenLabel;
 
+    private int buttonToggleState = 1;
     //Texture gameTitleTex = new Texture (Gdx.files.internal("data/gameTitle.png"));
 
 
@@ -145,6 +150,14 @@ public class SettingsScreen extends InputAdapter implements Screen {
         });
 
         // back button listener
+        backButton.addListener(new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                System.out.println("Button Pressed");
+                game.showStartScreen();
+            }
+        });
+
         backButton.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -154,6 +167,116 @@ public class SettingsScreen extends InputAdapter implements Screen {
         });
 
         stage.addActor(table);
+
+
+
+        stage.setKeyboardFocus(gameVolumeSlider);
+        gameVolumeSliderLabel.addAction(Actions.forever(Actions.sequence(fadeIn(.5f),fadeOut(.5f))));
+
+        stage.addListener(new InputListener() {
+            public boolean keyDown (InputEvent event, int keycode) {
+                if (keycode == Keys.DOWN  || keycode == Keys.S) {
+                    if (buttonToggleState == 3) {
+                        buttonToggleState = 1;
+                    } else {
+                        buttonToggleState++;
+                    }
+                    System.out.println(buttonToggleState);
+
+                    if(buttonToggleState == 1){
+                        gameVolumeSliderLabel.addAction(Actions.forever(Actions.sequence(fadeIn(.5f),fadeOut(.5f))));
+                        backButton.clearActions();
+                        backButton.addAction(fadeIn(.5f));
+                    }
+                    if(buttonToggleState == 2){
+                        musicVolumeSliderLabel.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(fadeIn(.5f),fadeOut(.5f))));
+                        gameVolumeSliderLabel.clearActions();
+                        gameVolumeSliderLabel.addAction(fadeIn(.5f));
+                    }
+                    if(buttonToggleState == 3){
+                        backButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(fadeIn(.5f),fadeOut(.5f))));
+                        musicVolumeSliderLabel.clearActions();
+                        musicVolumeSliderLabel.addAction(fadeIn(.5f));
+                    }
+                }
+
+                if (keycode == Input.Keys.UP || keycode == Keys.W) {
+                    if (buttonToggleState == 1) {
+                        buttonToggleState = 3;
+                    } else {
+                        buttonToggleState--;
+                    }
+                    System.out.println(buttonToggleState);
+
+
+                    if(buttonToggleState == 1){
+                        gameVolumeSliderLabel.addAction(Actions.forever(Actions.sequence(fadeIn(.5f),fadeOut(.5f))));
+                        musicVolumeSliderLabel.clearActions();
+                        musicVolumeSliderLabel.addAction(fadeIn(.5f));
+                    }
+                    if(buttonToggleState == 2){
+                        musicVolumeSliderLabel.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(fadeIn(.5f),fadeOut(.5f))));
+                        backButton.clearActions();
+                        backButton.addAction(fadeIn(.5f));
+                    }
+                    if(buttonToggleState == 3){
+                        backButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(fadeIn(.5f),fadeOut(.5f))));
+                        gameVolumeSliderLabel.clearActions();
+                        gameVolumeSliderLabel.addAction(fadeIn(.5f));
+                    }
+
+
+                }
+
+                if (keycode == Keys.RIGHT || keycode == Keys.D){
+                    if(stage.getKeyboardFocus() == gameVolumeSlider){
+                        float volumeValue = gameVolumeSlider.getValue();
+                        gameVolumeSlider.setValue(volumeValue+5);
+                        System.out.println(gameVolumeSlider.getValue());
+                    }
+                    if(stage.getKeyboardFocus() == musicVolumeSlider){
+                        float volumeValue = musicVolumeSlider.getValue();
+                        musicVolumeSlider.setValue(volumeValue+5);
+                        System.out.println(musicVolumeSlider.getValue());
+                    }
+                }
+                if (keycode == Keys.LEFT || keycode == Keys.A){
+                    if(stage.getKeyboardFocus() == gameVolumeSlider){
+                        float volumeValue = gameVolumeSlider.getValue();
+                        gameVolumeSlider.setValue(volumeValue-5);
+                        System.out.println(gameVolumeSlider.getValue());
+                    }
+                    if(stage.getKeyboardFocus() == musicVolumeSlider){
+                        float volumeValue = musicVolumeSlider.getValue();
+                        musicVolumeSlider.setValue(volumeValue-5);
+                        System.out.println(musicVolumeSlider.getValue());
+                    }
+                }
+                if (keycode == Keys.ENTER || keycode == Keys.SPACE){
+                    if(stage.getKeyboardFocus() == backButton){
+                        backButton.toggle();
+                    }
+                }
+
+                switch (buttonToggleState) {
+                    case 1:
+                        stage.setKeyboardFocus(gameVolumeSlider);
+                        break;
+                    case 2:
+                        stage.setKeyboardFocus(musicVolumeSlider);
+                        break;
+                    case 3:
+                        //backButton.setChecked(true);
+                        stage.setKeyboardFocus(backButton);
+                        break;
+                    default:
+                        break;
+                }
+
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -177,8 +300,10 @@ public class SettingsScreen extends InputAdapter implements Screen {
 
         game.spriteBatch.end();
 
+
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+
     }
 
     @Override

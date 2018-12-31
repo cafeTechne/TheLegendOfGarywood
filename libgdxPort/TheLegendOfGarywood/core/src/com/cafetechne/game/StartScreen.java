@@ -1,22 +1,24 @@
 package com.cafetechne.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
 
 public class StartScreen extends InputAdapter implements Screen {
 
@@ -28,8 +30,9 @@ public class StartScreen extends InputAdapter implements Screen {
     private TextButton continueButton, newGameButton, settingsButton, exitButton;
     private Table table;
     private Stage stage;
+    private int buttonToggleState = 1;
 
-//    Texture gameTitleTex = new Texture (Gdx.files.internal("data/gameTitle.png"));
+    //Texture gameTitleTex = new Texture (Gdx.files.internal("data/gameTitle.png"));
 
 
     public StartScreen(final TheLegendOfGarywood game){
@@ -124,6 +127,111 @@ public class StartScreen extends InputAdapter implements Screen {
         });
 
         stage.addActor(table);
+        stage.setKeyboardFocus(newGameButton);
+        newGameButton.addAction(Actions.forever(Actions.sequence(fadeIn(.5f),fadeOut(.5f))));
+
+        stage.addListener(new InputListener() {
+            public boolean keyDown (InputEvent event, int keycode) {
+                if (keycode == Input.Keys.DOWN  || keycode == Input.Keys.S) {
+                    if (buttonToggleState == 4) {
+                        buttonToggleState = 1;
+                    } else {
+                        buttonToggleState++;
+                    }
+                    System.out.println(buttonToggleState);
+
+                    if(buttonToggleState == 1){
+                        newGameButton.addAction(Actions.forever(Actions.sequence(fadeIn(.25f),fadeOut(.25f))));
+                        exitButton.clearActions();
+                        exitButton.addAction(fadeIn(.25f));
+                    }
+                    if(buttonToggleState == 2){
+                        continueButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(fadeIn(.25f),fadeOut(.25f))));
+                        newGameButton.clearActions();
+                        newGameButton.addAction(fadeIn(.25f));
+                    }
+                    if(buttonToggleState == 3){
+                        settingsButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(fadeIn(.25f),fadeOut(.25f))));
+                        continueButton.clearActions();
+                        continueButton.addAction(fadeIn(.25f));
+                    }
+                    if(buttonToggleState == 4){
+                        exitButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(fadeIn(.25f),fadeOut(.25f))));
+                        settingsButton.clearActions();
+                        settingsButton.addAction(fadeIn(.25f));
+                    }
+                }
+
+                if (keycode == Input.Keys.UP || keycode == Input.Keys.W) {
+                    if (buttonToggleState == 1) {
+                        buttonToggleState = 4;
+                    } else {
+                        buttonToggleState--;
+                    }
+                    System.out.println(buttonToggleState);
+
+
+                    if(buttonToggleState == 1){
+                        newGameButton.addAction(Actions.forever(Actions.sequence(fadeIn(.25f),fadeOut(.25f))));
+                        continueButton.clearActions();
+                        continueButton.addAction(fadeIn(.25f));
+                    }
+                    if(buttonToggleState == 2){
+                        continueButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(fadeIn(.25f),fadeOut(.5f))));
+                        settingsButton.clearActions();
+                        settingsButton.addAction(fadeIn(.25f));
+                    }
+                    if(buttonToggleState == 3){
+                        settingsButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(fadeIn(.25f),fadeOut(.25f))));
+                        exitButton.clearActions();
+                        exitButton.addAction(fadeIn(.25f));
+                    }
+                    if(buttonToggleState == 4){
+                        exitButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(fadeIn(.25f),fadeOut(.25f))));
+                        newGameButton.clearActions();
+                        newGameButton.addAction(fadeIn(.25f));
+                    }
+                }
+
+                System.out.println(stage.getKeyboardFocus());
+                if (keycode == Input.Keys.ENTER || keycode == Input.Keys.SPACE){
+                    if(buttonToggleState == 1){
+                        game.setScreen(new GameScreen(game));
+                    }
+                    else if(buttonToggleState == 2){
+                        game.setScreen(new ContinueScreen(game));
+                    }
+                    else if(buttonToggleState == 3){
+                        game.setScreen(new SettingsScreen(game));
+                    }
+                    else if(buttonToggleState == 4){
+                        Gdx.app.exit();
+                    }
+                }
+
+                switch (buttonToggleState) {
+                    case 1:
+                        stage.setKeyboardFocus(newGameButton);
+                        break;
+                    case 2:
+                        stage.setKeyboardFocus(continueButton);
+                        break;
+                    case 3:
+                        stage.setKeyboardFocus(settingsButton);
+                        break;
+                    case 4:
+                        stage.setKeyboardFocus(exitButton);
+                        break;
+                    default:
+                        break;
+                }
+
+                return true;
+            }
+        });
+
+
+
     }
 
     @Override
@@ -172,7 +280,7 @@ public class StartScreen extends InputAdapter implements Screen {
         //going back to a previously hidden scene will show the fonts and buttons missing...
         //game.spriteBatch.dispose();
         //game.font.dispose();
-        stage.dispose();
+        //stage.dispose();
     }
 
     @Override

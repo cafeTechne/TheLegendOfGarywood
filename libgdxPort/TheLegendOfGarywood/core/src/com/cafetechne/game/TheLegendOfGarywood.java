@@ -4,6 +4,8 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -48,9 +50,14 @@ public class TheLegendOfGarywood extends Game {
 
     public static TextureAtlas icons;
 
+    Music gameMusic;
+
+
     @Override
 	public void create () {
 			try {
+
+
 				logger.setLevel(Logger.DEBUG);
 				Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
@@ -69,6 +76,9 @@ public class TheLegendOfGarywood extends Game {
 
                 setScreen(new SplashScreen(this));
 
+
+                //gameMusic = Gdx.audio.newMusic(Gdx.files.internal("music/rain.mp3"));
+                //gameMusic.setLooping(true);
 
                 //normally we will start the startScreen first, but here we are testing the inventory screen as of now
 
