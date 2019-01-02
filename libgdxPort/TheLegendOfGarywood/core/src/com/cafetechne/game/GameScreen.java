@@ -45,9 +45,9 @@ public class GameScreen implements Screen {
     //see: https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html
     Texture mainCharacterSprite;
 
-    Sound swordSwingSound;
+    //Sound swordSwingSound;
 
-    Music gameMusic;
+    //Music gameMusic;
 
     ExtendViewport viewport;
 
@@ -61,7 +61,7 @@ public class GameScreen implements Screen {
         this.game = game;
 
         //how we set up sound
-        swordSwingSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+      //  swordSwingSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
 
 
 
@@ -88,7 +88,7 @@ public class GameScreen implements Screen {
     public void show() {
         // start the playback of the background music
         // when the screen is shown
-        gameMusic.play();
+        //gameMusic.play();
     }
 
     @Override
@@ -168,7 +168,7 @@ public class GameScreen implements Screen {
     public void dispose() {
         mainCharacterSprite.dispose();
 
-        swordSwingSound.dispose();
-        gameMusic.dispose();
+        //swordSwingSound.dispose();
+        //gameMusic.dispose();
     }
 }
