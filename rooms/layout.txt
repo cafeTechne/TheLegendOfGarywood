@@ -1,2 +1,4 @@
 1 (Wooden Door) 2
 2 (Wooden Door) 1
+1 (Iron Door) 3
+3 (Iron Door) 1

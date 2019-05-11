@@ -9,7 +9,8 @@
       [],
       "exits":
       [
-        "Wooden Door"
+        "Wooden Door",
+        "Iron Door"
       ],
       "npcList":
       [
@@ -27,6 +28,19 @@
       "exits":
       [
         "Wooden Door"
+      ],
+      "npcList":
+      []
+    },
+    {
+      "roomID": "3",
+      "roomTitle": "Laboratory",
+      "roomDescription": "A table covered with random objects is located at the center of this dimly lit room.",
+      "objectList": 
+      [],
+      "exits":
+      [
+        "Iron Door"
       ],
       "npcList":
       []
