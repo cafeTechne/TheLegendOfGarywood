@@ -94,7 +94,7 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 				keyboard.next();
 		    }
 		    newProfessionType = keyboard.nextInt();
-		} while (newProfessionType <= 0);
+		} while (newProfessionType <= 0 );
 		
 		modifyStartingStats(newProfessionType);
 		profession = professionFactory.chooseProfession(newProfessionType);

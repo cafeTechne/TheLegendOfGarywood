@@ -107,7 +107,12 @@ public class Application implements Serializable {
 			String secondInputString = input.substring(3, input.length());
 			move(secondInputString);
 		}
-		else {
+		else if(input.substring(0, 6).equalsIgnoreCase("attack") && input.length() > 6){
+			String secondInputString = input.substring(7, input.length());
+			
+				attack(secondInputString);
+			
+		}else {
 			System.out.println("That is not a valid command. Type 'help' for a list of commands.");
 		}
 	}
@@ -146,6 +151,34 @@ public class Application implements Serializable {
 			System.out.println("You are " + character.orientationStatus);
 		}
 	}
+	
+public static void attack(String attackTarget) {
+		
+		//checks to see if the character can move based on his Orientation state
+		if(character.tryToMove()) {
+			
+			
+			ArrayList<String> possibleTargets = (ArrayList) currentRoom.getNpcList();
+			
+			//TODO: This IF statement is not resolving to true when it should be, why not?
+			if(possibleTargets.contains(attackTarget)) {
+				
+				
+				//TODO: implement attack logic
+				System.out.println("You attack " + attackTarget + ".");
+			}
+			else {
+				System.out.println(attackTarget + " is an invalid attack target.");
+				System.out.println("possible targets are: " + possibleTargets);
+			}
+		}
+		else {
+			System.out.println("\nYou can not currently attack.");
+			System.out.println("You are " + character.orientationStatus);
+		}
+	}
+	
+	
 	
 	public static void newGame() {
 		//build game map

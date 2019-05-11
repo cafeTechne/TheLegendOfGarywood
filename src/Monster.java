@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Monster extends NPC implements MonsterInterface{
+public class Monster extends NPC implements MonsterInterface, AttackInterface{
 	
 	//set 10 hp to be the lowest a monster could possibly start off with
 	private int level = 1;
@@ -104,7 +104,9 @@ public class Monster extends NPC implements MonsterInterface{
 	 */
 	
 	public void onMonsterDeath() {
-		
+		//TODO: unique monster death messaging/animation triggered
+		//TODO: reward treasure method called
+		Application.currentRoom.removeNpc(this);
 	};
 	
 	
