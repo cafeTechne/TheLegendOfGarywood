@@ -43,6 +43,9 @@ public class Room implements Serializable{
     public void addNpc(NPC npc) {this.npcList.add(npc);}
     
     public void removeNpc(NPC npc) {this.npcList.remove(npc);}
+    
+    public void addObject(Item item) {this.objectList.add(item);}
+    
 
 
 }

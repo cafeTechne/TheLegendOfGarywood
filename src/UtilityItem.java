@@ -19,8 +19,8 @@ public class UtilityItem extends Item implements Serializable{
 			           int weight, boolean climbingItem, boolean swimmingItem, boolean caveItem,
 			           boolean healingItem, boolean giftItem, boolean poisonItem, boolean buildingItem, 
 			           boolean thieveryItem, boolean hidingItem, boolean teleportItem, boolean wandItem, 
-			           boolean magicRingItem) {
-		super(maxDurability, currDurability, length, width, height, weight);
+			           boolean magicRingItem, String itemName) {
+		super(maxDurability, currDurability, length, width, height, weight, itemName);
 		this.climbingItem = climbingItem;
 		this.swimmingItem = swimmingItem;
 		this.caveItem = caveItem;

@@ -32,8 +32,11 @@ public class Monster extends NPC implements MonsterInterface, AttackInterface{
 	//target the monster is currently engaging
 	private String currentTarget;
 	
+	//monster's name
+	private String name;
 	
-	public Monster(int hp, int magicPoints, double movementSpeed, double attackSpeed, double attackRange, int sizeCategory, int level, String region) {
+	
+	public Monster(int hp, int magicPoints, double movementSpeed, double attackSpeed, double attackRange, int sizeCategory, int level, String region, String name) {
 		this.setHealth(hp);
 		this.setMana(magicPoints);
 		
@@ -45,6 +48,7 @@ public class Monster extends NPC implements MonsterInterface, AttackInterface{
 		this.setAttackRange(attackRange);
 		this.loot = new Treasure(level, region);
 		this.setOrientationStatus(new Standing());
+		this.name = name;
 	}
 
 
@@ -186,6 +190,9 @@ public class Monster extends NPC implements MonsterInterface, AttackInterface{
 		        
 	}
 
+	public String getName() {
+		return this.name;
+	}
 	
 	
 	

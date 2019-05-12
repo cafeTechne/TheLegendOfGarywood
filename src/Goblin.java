@@ -10,14 +10,14 @@ public class Goblin extends Monster{
 	private List<String> abilityList = new ArrayList<String>();
 	
 	public Goblin() {
-		super(5, 5, .5, .5, 1, 2, 1, "forest");
+		super(5, 5, .5, .5, 1, 2, 1, "forest", "goblin");
 		Application.currentRoom.addNpc(this);
 	}
 	
 	public Goblin(int hp, int magicPoints, double movementSpeed, double attackSpeed, double attackRange,
-			int sizeCategory, int level, String region) {
-		super(hp, magicPoints, movementSpeed, attackSpeed, attackRange, sizeCategory, level, region);
-		
+			int sizeCategory, int level, String region, String name) {
+		super(hp, magicPoints, movementSpeed, attackSpeed, attackRange, sizeCategory, level, region, name);
+		this.name = name;
 		abilityList.add("taunt");
 		System.out.println("\nA drunken goblin stumbles in.");
 		Application.currentRoom.addNpc(this);
@@ -33,7 +33,7 @@ public class Goblin extends Monster{
 	};
 	
 	public String toString() {
-		return name;
+		return this.getName();
 	}
 
 }

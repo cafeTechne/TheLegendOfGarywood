@@ -9,14 +9,16 @@ public class Item implements Serializable {
 	private int width = 1;
 	private int height = 1;
 	private int weight = 1;
+	private String itemName = "generic item";
 	
-	public Item(int maxDurability, int currDurability, int length, int width, int height, int weight) {
+	public Item(int maxDurability, int currDurability, int length, int width, int height, int weight, String itemName) {
 		this.setMaximumDurability(maxDurability);
 		this.setCurrentDurability(currDurability);
 		this.setLength(length);
 		this.setWidth(width);
 		this.setHeight(height);
 		this.setWeight(weight);
+		this.itemName = itemName;
 	}
 
 	public int getMaximumDurability() {
@@ -67,7 +69,13 @@ public class Item implements Serializable {
 		this.weight = weight;
 	}
 	
+	public String getItemName() {
+		return this.itemName;
+	}
 	
+	public String toString() {
+		return this.itemName;
+	}
 	
 
 }

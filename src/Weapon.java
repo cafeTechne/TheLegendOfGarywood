@@ -11,8 +11,8 @@ public class Weapon extends Item implements Serializable {
 	private boolean wooden = false;
 
 	public Weapon(int maxDurability, int currDurability,int length, int width, int height, int weight, 
-			int pierce, int slash, int bash, boolean flammable, boolean silver, boolean magical, boolean wooden) {
-		super(maxDurability, currDurability, length, width, height, weight);
+			int pierce, int slash, int bash, boolean flammable, boolean silver, boolean magical, boolean wooden, String itemName) {
+		super(maxDurability, currDurability, length, width, height, weight, itemName);
 		this.setPierce(pierce);
 		this.setSlash(slash);
 		this.setBash(bash);

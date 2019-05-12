@@ -11,7 +11,7 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 	private String name;
 	private Profession profession;
 	transient Scanner keyboard = new Scanner(System.in);
-
+	
 
 	public Character(String name) {
 		this.setIntelligence((int) (25 + ((Math.random()*25) +1)));

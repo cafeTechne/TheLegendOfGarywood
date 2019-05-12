@@ -2,7 +2,7 @@ import java.io.Serializable;
 
 public class NPC extends Entity implements Serializable {
 
-    String name;
+    private String name;
 
 	public boolean isSafe() {
 		//set to a default value for now
@@ -34,4 +34,11 @@ public class NPC extends Entity implements Serializable {
 		return name;
 	}
 
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String newName) {
+		this.name = newName;
+	}
 }

@@ -20,8 +20,8 @@ public class Armor extends Item implements Serializable{
 			     int height, int weight, boolean cloth, boolean leather, boolean scale, 
 			     boolean chain, boolean brigandine, boolean plate, boolean magical, 
 			     int heatResistance, int coldResistance, int magicResistance, 
-			     int holyResistance, int unholyResistance) {
-		super(maxDurability, currDurability, length, width, height, weight);
+			     int holyResistance, int unholyResistance, String itemName) {
+		super(maxDurability, currDurability, length, width, height, unholyResistance, itemName);
 		this.cloth =cloth;
 		this.leather = leather;
 		this.scale = scale;
