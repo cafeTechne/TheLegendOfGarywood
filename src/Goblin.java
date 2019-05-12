@@ -10,16 +10,16 @@ public class Goblin extends Monster{
 	private List<String> abilityList = new ArrayList<String>();
 	
 	public Goblin() {
-		super(5, 5, .5, .5, 1, 2, 1, "forest", "goblin");
+		super(5, 5, .5, .5, 1, 2, 1, 0, 0, 0, "forest", "goblin");
 		Application.currentRoom.addNpc(this);
 	}
 	
 	public Goblin(int hp, int magicPoints, double movementSpeed, double attackSpeed, double attackRange,
-			int sizeCategory, int level, String region, String name) {
-		super(hp, magicPoints, movementSpeed, attackSpeed, attackRange, sizeCategory, level, region, name);
+			int sizeCategory, int level,int slashDefense, int pierceDefense, int bashDefense, String region, String name) {
+		super(hp, magicPoints, movementSpeed, attackSpeed, attackRange, sizeCategory, level, slashDefense, pierceDefense, bashDefense, region, name);
 		this.name = name;
 		abilityList.add("taunt");
-		System.out.println("\nA drunken goblin stumbles in.");
+		System.out.println("\nA " +  this.getName()+ " stumbles in.");
 		Application.currentRoom.addNpc(this);
 		
 

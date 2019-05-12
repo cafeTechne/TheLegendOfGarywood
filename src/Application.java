@@ -149,7 +149,7 @@ public class Application implements Serializable {
 				}
 			}
 			if (targetFound == true) {
-				// TODO: implement attack logic...THOUGHTS: to-hit? armor score? 
+				// TODO: implement attack logic...THOUGHTS: to-hit? armor score?
 				System.out.println("You attack a " + attackTarget + ".");
 				targetFound = false;
 			} else {
@@ -194,7 +194,7 @@ public class Application implements Serializable {
 		// and a list of objects in a room
 		// TODO: Figure out a way for these objects to be persistent by either writing
 		// to the JSON file or serializing them.
-		Goblin gobsnatch = new Goblin(5, 5, .5, .5, 1, 2, 1, "forest", "Crazed Goblin");
+		Goblin gobsnatch = new Goblin(5, 5, .5, .5, 1, 2, 1, 0, 0, 0, "forest", "Crazed Goblin");
 
 		System.out.println("Type 'help' (without the quotation marks) for more info on possible commands!");
 

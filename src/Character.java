@@ -7,9 +7,13 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 	private int strength = 1; 
 	private int dexterity = 1;
 	private int guile = 1;
+	private int level = 1;
+	private int exp = 1;
 	
 	private String name;
 	private Profession profession;
+	private Weapon weaponEquipped;
+	private Inventory inventory;
 	transient Scanner keyboard = new Scanner(System.in);
 	
 
@@ -73,6 +77,7 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 		System.out.println("Profession : " + this.getProfession());
 		System.out.println("Abilities: " + this.profession.getAbilityList());
 		System.out.println("Current Emotion: " + this.getCurrentEmotion());
+		System.out.println("Currently Holding: " + this.getWeaponEquipped());
 	}
 	    
 	public void chooseProfession() {
@@ -104,15 +109,23 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 		if(newProfessionType == 1) {
 			int oldGuileValue = this.getGuile();
 			this.setGuile(oldGuileValue + 10);
+			this.weaponEquipped = new Weapon(20, 20, 1, 1, 1, 5, 
+			0, 0, 1, false, false, false, false, "fancy suitcase");
 		} else if(newProfessionType == 2) {
 			int oldStrengthValue = this.getStrength();
 			this.setStrength(oldStrengthValue + 10);
+			this.weaponEquipped = new Weapon(50, 50,0, 0, 4, 4, 
+					1, 1, 2, true, false, false, true, "wooden broom");
 		} else if(newProfessionType == 3) {
 			int oldDexterityValue = this.getDexterity();
 			this.setDexterity(oldDexterityValue + 10);
+			this.weaponEquipped = new Weapon(100, 100, 0, 0, 0, 1, 
+					2, 2, 1, false, false, false, false, "scissors");
 		}else if(newProfessionType == 4) {
 			int oldIntelligenceValue = this.getIntelligence();
 			this.setIntelligence((oldIntelligenceValue + 10));
+			this.weaponEquipped = new Weapon(999, 999, 0, 0, 0, 0, 
+					0, 0, 1, false, false, false, false, "nothing");
 		}
 	}
 
@@ -179,6 +192,23 @@ public class Character extends Entity implements CharacterInterface, Serializabl
 	public void onActionTrigger() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Item getWeaponEquipped() {
+		return weaponEquipped;
+	}
+
+	public void setWeaponEquipped(Weapon weaponEquipped) {
+		
+		this.weaponEquipped = weaponEquipped;
+	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 	
 	

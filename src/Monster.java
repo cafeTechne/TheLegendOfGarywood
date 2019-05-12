@@ -32,11 +32,21 @@ public class Monster extends NPC implements MonsterInterface, AttackInterface{
 	//target the monster is currently engaging
 	private String currentTarget;
 	
+	//slash defense
+	private int slashDefense;
+	
+	//pierce defense
+	private int pierceDefense;
+	
+	//bash defense
+	private int bashDefense;
+	
 	//monster's name
 	private String name;
 	
 	
-	public Monster(int hp, int magicPoints, double movementSpeed, double attackSpeed, double attackRange, int sizeCategory, int level, String region, String name) {
+	public Monster(int hp, int magicPoints, double movementSpeed, double attackSpeed, 
+			double attackRange, int sizeCategory, int level, int slashDefense, int pierceDefense, int bashDefense, String region, String name) {
 		this.setHealth(hp);
 		this.setMana(magicPoints);
 		
