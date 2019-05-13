@@ -46,6 +46,7 @@ public class Inventory implements Serializable {
 		if(this.currentNumberOfItems < this.maximumNumberOfItems) {
 			itemList.add(itemToAdd);
 			this.currentNumberOfItems++;
+			System.out.println("You pick up a " + itemToAdd.toString());
 		} else {
 			System.out.println("You have no more room in your " + this.bagName);
 		}

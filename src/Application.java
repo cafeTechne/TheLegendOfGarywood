@@ -93,10 +93,12 @@ public class Application implements Serializable {
 			move(secondInputString);
 		} else if (input.substring(0, 6).equalsIgnoreCase("attack") && input.length() > 6) {
 			String secondInputString = input.substring(7, input.length());
-
 			attack(secondInputString);
-
-		} else {
+		} else if (input.substring(0, 3).equalsIgnoreCase("get") && input.length() > 3) {
+			String secondInputString = input.substring(4, input.length());
+			get(secondInputString);
+		} 		
+		else {
 			System.out.println("That is not a valid command. Type 'help' for a list of commands.");
 		}
 	}
@@ -134,6 +136,25 @@ public class Application implements Serializable {
 			System.out.println("You are " + character.orientationStatus);
 		}
 	}
+
+	public static void get(String getTarget) {
+		List<Item> possibleGetTargets = currentRoom.getObjectList();
+		boolean itemFound = false;
+		Item foundItem = null;
+		for (Item getItemTarget : possibleGetTargets) {
+			if (getItemTarget.getItemName().matches(getTarget)) {
+				itemFound = true;
+				foundItem = getItemTarget;
+			}
+		}
+		if (itemFound == true) {
+			character.getInventory().getItem(foundItem);
+			itemFound = false;
+		} else {
+			System.out.println(getTarget + " is an invalid selection.");
+			System.out.println("possible items lying nearby are: " + possibleGetTargets);
+		} 
+}
 
 	public static void attack(String attackTarget) {
 

@@ -10,7 +10,7 @@ public class Room implements Serializable{
     private List<String> exits;
     private Map<String, Room> exitRoomMap;
     private List<NPC> npcList;
-    private List<Object> objectList;
+    private List<Item> objectList;
 
     public int getRoomID() { return roomID; }
 
@@ -34,9 +34,9 @@ public class Room implements Serializable{
 
     public List<NPC> getNpcList() { return npcList; }
 
-    public void setObjectList(List<Object> objectList) { this.objectList = objectList; }
+    public void setObjectList(List<Item> objectList) { this.objectList = objectList; }
 
-    public List<Object> getObjectList() { return objectList; }
+    public List<Item> getObjectList() { return objectList; }
 
     public void setNpcList(List<NPC> npcList) { this.npcList = npcList; }
     
