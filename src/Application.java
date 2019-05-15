@@ -31,7 +31,10 @@ public class Application implements Serializable {
 
 	}
 
-	// TODO: How to modularize input parsing for efficiency?
+//	TODO: Question: Should I place all of the input into its own class?
+	//Reason I haven't yet is because as of now Application is mainly just
+	//an input class... but as the view gets developed I imagine this will change.
+	
 	public static void input() throws IOException {
 		System.out.println("\nUser, what would you like to do?");
 		String input = keyboard.nextLine();

@@ -56,7 +56,7 @@ public class Monster extends NPC implements MonsterInterface, AttackInterface{
 		
 		this.setMovementSpeed(movementSpeed);
 		this.setAttackRange(attackRange);
-		this.loot = new Treasure(level, region);
+		this.setLoot(new Treasure(level, region));
 		this.setOrientationStatus(new Standing());
 		this.name = name;
 	}
@@ -203,7 +203,79 @@ public class Monster extends NPC implements MonsterInterface, AttackInterface{
 	public String getName() {
 		return this.name;
 	}
+
+
+	public int getSlashDefense() {
+		return slashDefense;
+	}
+
+
+	public void setSlashDefense(int slashDefense) {
+		this.slashDefense = slashDefense;
+	}
+
+
+	public int getPierceDefense() {
+		return pierceDefense;
+	}
+
+
+	public void setPierceDefense(int pierceDefense) {
+		this.pierceDefense = pierceDefense;
+	}
+
+
+	public int getBashDefense() {
+		return bashDefense;
+	}
+
+
+	public void setBashDefense(int bashDefense) {
+		this.bashDefense = bashDefense;
+	}
+
+
+	public Treasure getLoot() {
+		return loot;
+	}
+
+
+	public void setLoot(Treasure loot) {
+		this.loot = loot;
+	}
+
+
+	public String getRegion() {
+		return region;
+	}
+
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+
+	public int getCurrentExperience() {
+		return currentExperience;
+	}
+
+
+	public void setCurrentExperience(int currentExperience) {
+		this.currentExperience = currentExperience;
+	}
+
+
+	public int getLevel() {
+		return level;
+	}
+
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	
-	
+	public String toString() {
+		return this.name;
+	}
 	
 }
