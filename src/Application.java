@@ -46,7 +46,21 @@ public class Application implements Serializable {
 			System.out.println("That is an invalid command.");
 		} else if (input.equalsIgnoreCase("look")) {
 			lookAtCurrentRoom();
-		} else if (input.equalsIgnoreCase("info")) {
+		} else if (input.equalsIgnoreCase("look at") && input.length() == 7) {
+			System.out.println("What do you want to look at?");
+		} else if (input.substring(0,7).equalsIgnoreCase("look at")) {
+			String secondInputString = input.substring(8, input.length());
+			lookAt(secondInputString);
+		}
+		//TODO: Write a lookAt function that accesses the DESCRIPTION attribute of an object and
+		//prints the output to the console.
+		
+		//TODO: mirror the 'at' function with an 'in', 'under', etc. w/ correspondingly 
+		//appropriate messaging and a system for relational item positioning--a data attribute of 
+		//WHAT object? Can this change relationally or am I over-thinking this?
+		
+		
+		else if (input.equalsIgnoreCase("info")) {
 			System.out.println("Your character has the following stats:\n");
 			character.displayInfo();
 		} else if (input.equalsIgnoreCase("sit")) {
@@ -140,6 +154,14 @@ public class Application implements Serializable {
 		}
 	}
 
+	//TODO: Complete this method once you figure out how to store an object's description,
+	//will this require SQL or a JSON database with object descriptions? If so, should I write
+	//a tool to make databasing this easy?
+	public static void lookAt(String objectToLookAt) {
+		
+		
+	}
+	
 	public static void get(String getTarget) {
 		List<Item> possibleGetTargets = currentRoom.getObjectList();
 		boolean itemFound = false;
