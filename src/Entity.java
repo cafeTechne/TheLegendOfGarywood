@@ -1,11 +1,12 @@
+import java.io.Serializable;
 
-public class Entity {
+public class Entity implements Serializable{
 
 	
 	
 	private int health = 100;
 	int manaPoints = 100;
-	
+	private String description = "needs a description";
 	
 	Location currentLocation;
 
@@ -137,6 +138,14 @@ public class Entity {
 
 	public void setAttackRange(double attackRange) {
 		this.attackRange = attackRange;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

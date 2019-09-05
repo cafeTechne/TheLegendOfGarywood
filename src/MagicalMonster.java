@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class MagicalMonster extends Monster implements MonsterInterface, AttackInterface {
+public class MagicalMonster extends Monster implements MonsterInterface, AttackInterface, Serializable {
 
 	//magical monsters have defenses against certain kinds of magic, like PC's
 	

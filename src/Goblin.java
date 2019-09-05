@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Goblin extends Monster{
+public class Goblin extends Monster implements Serializable{
 	
 	//TODO: Use RNG to apply different adjectives to monster names on object creation
 	private String name = "Drunken Goblin";

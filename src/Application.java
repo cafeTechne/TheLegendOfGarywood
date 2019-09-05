@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 
+
 public class Application implements Serializable {
 
 	public static int characterCount = 0;
@@ -48,10 +49,29 @@ public class Application implements Serializable {
 			lookAtCurrentRoom();
 		} else if (input.equalsIgnoreCase("look at") && input.length() == 7) {
 			System.out.println("What do you want to look at?");
-		} else if (input.substring(0,7).equalsIgnoreCase("look at")) {
+		} else if (input.equalsIgnoreCase("roll d4")) {
+			System.out.println("You roll a 4 sided die and the result is: " + roll("d4"));
+		} else if (input.equalsIgnoreCase("roll d6")) {
+			System.out.println("You roll a 6 sided die and the result is: " + roll("d6"));
+		} else if (input.equalsIgnoreCase("roll d8")) {
+			System.out.println("You roll a 8 sided die and the result is: " + roll("d8"));
+		} else if (input.equalsIgnoreCase("roll d10")) {
+			System.out.println("You roll a 10 sided die and the result is: " + roll("d10"));
+		} else if (input.equalsIgnoreCase("roll d12")) {
+			System.out.println("You roll a 12 sided die and the result is: " + roll("d12"));
+		} else if (input.equalsIgnoreCase("roll d20")) {
+			System.out.println("You roll a 20 sided die and the result is: " + roll("d20"));
+		} else if (input.equalsIgnoreCase("roll d100")) {
+			System.out.println("You roll a 100 sided die and the result is: " + roll("d100"));
+		} 
+
+		
+		/*//TODO: This is broken, fix it and extend "look at"
+		else if (input.substring(0,7).equalsIgnoreCase("look at") && input.length() > 7) {
 			String secondInputString = input.substring(8, input.length());
 			lookAt(secondInputString);
 		}
+		*/
 		//TODO: Write a lookAt function that accesses the DESCRIPTION attribute of an object and
 		//prints the output to the console.
 		
@@ -274,11 +294,15 @@ public class Application implements Serializable {
 		System.out.println("Obvious exits: " + currentRoom.getExits());
 	}
 
-	public static void exit() {
+	public static void exit() throws IOException {
 		// Gives user the option to save data?
 		System.out.println("User, would you like to save before exiting?");
-		keyboard.nextLine();
-
+		
+		String input = keyboard.nextLine();
+ 
+		if (input.equalsIgnoreCase("yes")){
+			saveGame();
+		}
 		System.exit(0);
 	}
 
@@ -332,4 +356,41 @@ public class Application implements Serializable {
 
 	}
 
+
+	public static int roll(String diceIdentifier) {
+		Random randomNumber = new Random();
+		int d4 = randomNumber.nextInt(4) + 1;
+		int d6 = randomNumber.nextInt(6) + 1;
+		int d8 = randomNumber.nextInt(8) + 1;
+		int d10 = randomNumber.nextInt(10) + 1;
+		int d12 = randomNumber.nextInt(12) + 1;
+		int d20 = randomNumber.nextInt(20) + 1;
+		int d100 = randomNumber.nextInt(100) + 1;
+		
+		if(diceIdentifier == "d4") {
+			return d4;
+		}
+		if(diceIdentifier == "d6") {
+			return d6;
+		}
+		if(diceIdentifier == "d8") {
+			return d8;
+		}
+		if(diceIdentifier == "d10") {
+			return d10;
+		}
+		if(diceIdentifier == "d12") {
+			return d12;
+		}
+		if(diceIdentifier == "d20") {
+			return d20;
+		}
+		if(diceIdentifier == "d100") {
+			return d100;
+		}	
+		return 0;
+	}
+	
+	
+	
 }

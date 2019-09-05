@@ -1,3 +1,4 @@
+import java.io.Serializable;
 
 public interface EmotionalState {
 	
@@ -5,7 +6,7 @@ public interface EmotionalState {
 
 //TODO: bounds checking for the setIntensity() method? Perhaps we can do this externally, depending on context.
 
-class EmotionalStateHappiness implements EmotionalState{
+class EmotionalStateHappiness implements EmotionalState, Serializable {
 
 	String currentEmotion;
 	double intensity;

@@ -1,5 +1,5 @@
 
-public interface AttackInterface {
+public interface AttackInterface  {
 
 	//needs logic to decide on what target to attack
 	//how will aggro work?

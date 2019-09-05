@@ -3,12 +3,14 @@ import java.util.*;
 
 public class Character extends Entity implements CharacterInterface, Serializable{
 
+
 	private int intelligence = 1;
 	private int strength = 1; 
 	private int dexterity = 1;
 	private int guile = 1;
 	private int level = 1;
 	private int exp = 1;
+	
 	
 	private String name;
 	private Profession profession;

@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Monster extends NPC implements MonsterInterface, AttackInterface{
+public class Monster extends NPC implements MonsterInterface, AttackInterface, Serializable{
 	
 	//set 10 hp to be the lowest a monster could possibly start off with
 	private int level = 1;

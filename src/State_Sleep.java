@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class State_Sleep extends State {
+public class State_Sleep extends State implements Serializable {
 
 		public void execute(NPC npc) {
 			if(npc.isThreatened()) {
