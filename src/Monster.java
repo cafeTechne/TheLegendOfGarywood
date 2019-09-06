@@ -47,7 +47,7 @@ public class Monster extends NPC implements MonsterInterface, AttackInterface, S
 	
 	
 	public Monster(int hp, int magicPoints, double movementSpeed, double attackSpeed, 
-			double attackRange, int sizeCategory, int level, int slashDefense, int pierceDefense, int bashDefense, String region, String name) {
+			double attackRange, int sizeCategory, int level, int slashDefense, int pierceDefense, int bashDefense, String region, String name, String description) {
 		this.setHealth(hp);
 		this.setMana(magicPoints);
 		
@@ -60,6 +60,7 @@ public class Monster extends NPC implements MonsterInterface, AttackInterface, S
 		this.setLoot(new Treasure(level, region));
 		this.setOrientationStatus(new Standing());
 		this.name = name;
+		super.setDescription(description);
 	}
 
 

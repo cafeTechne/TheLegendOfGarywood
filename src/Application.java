@@ -66,11 +66,12 @@ public class Application implements Serializable {
 		} 
 
 		
-		/*//TODO: This is broken, fix it and extend "look at"
-		else if (input.substring(0,7).equalsIgnoreCase("look at") && input.length() > 7) {
+		//TODO: This is broken, fix it and extend "look at"
+		else if (input.substring(0,6).equalsIgnoreCase("look at") && input.length() > 7) {
 			String secondInputString = input.substring(8, input.length());
 			lookAt(secondInputString);
 		}
+		/*
 		*/
 		//TODO: Write a lookAt function that accesses the DESCRIPTION attribute of an object and
 		//prints the output to the console.
@@ -182,17 +183,45 @@ public class Application implements Serializable {
 		
 	}
 	
+	public static boolean findNPC(String NPCtoBeFound) {
+		List<NPC> possibleTargets = currentRoom.getNpcList();
+		
+		for (NPC target : possibleTargets) {
+			if (target.getName().matches(NPCtoBeFound)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static Item findObject(String ObjectToFind) {
+		List<Item> possibleItems = currentRoom.getObjectList();
+		
+		for (Item targetItem : possibleItems) {
+			if (targetItem.getItemName().matches(ObjectToFind)) {
+				return targetItem;
+			}
+		}
+		return null;
+	}
+	
+	//TODO: I started rewriting this to apply a general logic using findObject, to
+	//eliminate code reuse for finding descriptions using 'look at'--FINISH THIS!
+	//then, TODO: apply the above technique to the attack() method using the findNPC logic
+	
 	public static void get(String getTarget) {
 		List<Item> possibleGetTargets = currentRoom.getObjectList();
 		boolean itemFound = false;
 		Item foundItem = null;
+		
 		for (Item getItemTarget : possibleGetTargets) {
 			if (getItemTarget.getItemName().matches(getTarget)) {
 				itemFound = true;
 				foundItem = getItemTarget;
 			}
 		}
-		if (itemFound == true) {
+		
+		if (findObject(getTarget) != null) {
 			character.getInventory().getItem(foundItem);
 			itemFound = false;
 		} else {
@@ -260,7 +289,7 @@ public class Application implements Serializable {
 		// and a list of objects in a room
 		// TODO: Figure out a way for these objects to be persistent by either writing
 		// to the JSON file or serializing them.
-		Goblin gobsnatch = new Goblin(5, 5, .5, .5, 1, 2, 1, 0, 0, 0, "forest", "Crazed Goblin");
+		Goblin gobsnatch = new Goblin(5, 5, .5, .5, 1, 2, 1, 0, 0, 0, "forest", "Crazed Goblin", "The goblin doesn't look happy.");
 
 		System.out.println("Type 'help' (without the quotation marks) for more info on possible commands!");
 

@@ -6,7 +6,7 @@ public class Entity implements Serializable{
 	
 	private int health = 100;
 	int manaPoints = 100;
-	private String description = "needs a description";
+	private String description = "This is the default description. Use Polymorphism to insert a description here!";
 	
 	Location currentLocation;
 

@@ -23,9 +23,9 @@ public class MagicalMonster extends Monster implements MonsterInterface, AttackI
 			int fireDefense, int windDefense, int waterDefense, int smokeDefense, 
 			int electricityDefense, int iceDefense, int holyDefense, int explosionDefense,
 			int earthDefense, int unholyDefense, int natureDefense, int timeDefense,
-			int physicalDefense, String region, String name) {
+			int physicalDefense, String region, String name, String description) {
 		super(hp, magicPoints, movementSpeed, attackSpeed, attackRange, sizeCategory, level, slashDefense, pierceDefense,
-				bashDefense, region, name);
+				bashDefense, region, name, description);
 		
 		this.fireDefense = fireDefense;
 		this.windDefense = windDefense;
@@ -39,7 +39,8 @@ public class MagicalMonster extends Monster implements MonsterInterface, AttackI
 		this.unholyDefense = unholyDefense; 
 		this.natureDefense = natureDefense; 
 		this.timeDefense = timeDefense; 
-		this.physicalDefense = physicalDefense; 
+		this.physicalDefense = physicalDefense;
+		super.setDescription(description);
 		
 		// TODO Auto-generated constructor stub
 	}
